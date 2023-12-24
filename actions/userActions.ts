@@ -4,6 +4,10 @@ import { connect } from "@/utils/dbConfig";
 connect();
 
 export const toalUsers = async () => {
-  const count = await User.countDocuments();
-  return count;
+  try {
+    const count = await User.countDocuments();
+    return count;
+  } catch {
+    return null;
+  }
 };
