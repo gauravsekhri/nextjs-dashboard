@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -22,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { LuUsers2 } from "react-icons/lu";
@@ -31,6 +32,8 @@ import Link from "next/link";
 
 const Sidebar = () => {
   const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [
     {
@@ -136,25 +139,86 @@ const Sidebar = () => {
             // onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
-            <MenuIcon className="h-6 w-6" aria-hidden="true" />
+            <MenuIcon
+              className="h-6 w-6"
+              aria-hidden="true"
+              onClick={() => setIsOpen(true)}
+            />
           </button>
 
           <div className="flex flex-1 gap-x-4 self-stretch items-center lg:gap-x-6 justify-end">
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               {/* Profile dropdown */}
-              User
+              <div className="flex justify-between items-center space-x-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="flex w-full justify-between items-center group rounded-md gap-x-3 p-2 text-sm font-semibold leading-6 text-foreground hover:bg-gray-200 hover:dark:bg-secondary">
+                    <span>User</span>
+                    <IoIosArrowDown />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-42">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <Link href="/profile">
+                      <DropdownMenuItem className="flex items-center cursor-pointer">
+                        <FaRegUser />
+
+                        <span className="ml-2">Profile</span>
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem className="flex items-center cursor-pointer">
+                      <CiLogout />
+                      <span className="ml-2">Logout</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <Sheet open={false}>
+      <Sheet
+        open={isOpen}
+        onOpenChange={() => {
+          if (isOpen) {
+            setIsOpen(false);
+          }
+        }}
+      >
         <SheetContent side="left">
           <SheetHeader>
-            <SheetTitle>Are you sure absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+            <SheetTitle className="py-8">Navigate</SheetTitle>
+            <SheetDescription className="pt-14">
+              <ul>
+                <li>
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {navigation.map((item) => (
+                      <li key={item.name}>
+                        <button
+                          onClick={() => {
+                            router.push(item.href);
+                            setIsOpen(false);
+                          }}
+                          className={cn(
+                            item.current
+                              ? "bg-gray-200 dark:bg-secondary text-secondary-foreground font-semibold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-gray-200 hover:dark:bg-muted",
+                            "group flex gap-x-3 items-center rounded-md p-2 text-sm leading-6 w-full disabled:hover:bg-transparent disabled:text-muted-foreground disabled:cursor-default"
+                          )}
+                          disabled={item.disabled}
+                        >
+                          <item.icon
+                            className="h-5 w-5 shrink-0"
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </ul>
             </SheetDescription>
           </SheetHeader>
         </SheetContent>

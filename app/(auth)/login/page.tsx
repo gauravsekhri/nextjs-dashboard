@@ -102,11 +102,11 @@ export default function AuthenticationPage() {
           </div>
         </div>
       </div> */}
-      <div className="min-h-screen grid lg:pt-0 pt-16 lg:grid-flow-col grid-flow-row [background-size:10px_10px] bg-[repeating-linear-gradient(45deg,_#dedede_0,_#dedede_1px,_#ffffff_0,_#ffffff_50%)] dark:bg-[repeating-linear-gradient(45deg,_#272a2f_0,_#272a2f_1px,_#161b22_0,_#161b22_50%)]">
+      <div className="min-h-screen grid lg:pt-0 pt-24 pb-14 md:pt-16 lg:grid-flow-col grid-flow-row [background-size:10px_10px] bg-[repeating-linear-gradient(45deg,_#dedede_0,_#dedede_1px,_#ffffff_0,_#ffffff_50%)] dark:bg-[repeating-linear-gradient(45deg,_#272a2f_0,_#272a2f_1px,_#161b22_0,_#161b22_50%)]">
         <div className="lg:col-span-7 flex flex-col justify-between text-white">
           <div></div>
           <div className="text-center">
-            <p className="text-5xl mb-5 font-bold sm:text-4xl xl:text-6xl/none bg-clip-text text-transparent dark:bg-gradient-to-r bg-gradient-to-tr dark:from-white from-black to-neutral-400 dark:to-neutral-800 capitalize">
+            <p className="text-4xl mb-5 font-bold sm:text-4xl xl:text-6xl/none bg-clip-text text-transparent dark:bg-gradient-to-r bg-gradient-to-tr dark:from-white from-black to-neutral-400 dark:to-neutral-800 capitalize">
               NextJs Admin Dashboard
             </p>
             <p className="hidden lg:block lg:max-w-[600px] max-w-[90%] leading-7 mx-auto text-center text-xs lg:text-md bg-clip-text text-transparent dark:bg-gradient-to-br bg-gradient-to-tr dark:from-white from-black to-neutral-900 dark:to-neutral-700">
@@ -114,7 +114,7 @@ export default function AuthenticationPage() {
               capabilities. <br /> In future I will add more complex features to
               this dashboard.
             </p>
-            <div className="lg:max-w-[500px] max-w-[90%] w-fit mx-auto mt-5 lg:mt-10 flex flex-wrap justify-center py-5 rounded-xl">
+            <div className="lg:max-w-[500px] max-w-[95%] w-fit mx-auto mt-5 lg:mt-10 flex flex-wrap justify-center py-3 lg:py-5 rounded-xl">
               {skillsUsed.map((ele: any, ei: any) => (
                 <div
                   key={ei}
@@ -124,7 +124,7 @@ export default function AuthenticationPage() {
                 </div>
               ))}
             </div>
-            <div className="lg:mt-8 mt-4 bg-gray-900 text-sm lg:text-lg p-4 w-fit mx-auto rounded-lg">
+            <div className=" lg:mt-8 mt-4 mb-6 bg-gray-900 text-sm lg:text-lg p-4 w-fit mx-auto rounded-lg">
               <span className="text-gray-300 dark:text-gray-400">
                 Developed by{" "}
               </span>
@@ -201,8 +201,10 @@ export default function AuthenticationPage() {
         </div>
       </div>
 
-      <div className="absolute top-0 right-0 rounded-lg p-4 bg-transparent flex items-center">
-        <span className="mr-4 animate-bounce">Try Theme</span>
+      <div className="absolute top-0 right-0 rounded-lg p-3 bg-transparent flex items-center">
+        <span className="mr-4 animate-bounce dark:text-gray-400">
+          Try Theme
+        </span>
         <ThemeToggle />
       </div>
     </>
