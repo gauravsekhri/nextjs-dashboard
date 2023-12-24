@@ -14,7 +14,7 @@ const Analytics = async () => {
               Analytics
             </h2>
             <p className="text-sm text-muted-foreground">
-              List of all the blogs
+              Quick Analysis of our blogs
             </p>
           </div>
         </div>
