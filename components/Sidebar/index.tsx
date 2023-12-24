@@ -29,16 +29,17 @@ import { LuUsers2 } from "react-icons/lu";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TfiWrite } from "react-icons/tfi";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
-const Sidebar = () => {
+const Sidebar = ({ session }: { session: any }) => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [
     {
-      name: "Dashboard",
-      href: "/",
+      name: "Analytics",
+      href: "/analytics",
       disabled: false,
       current: false,
       icon: MdOutlineDashboard,
@@ -103,7 +104,7 @@ const Sidebar = () => {
                 <div className="flex justify-between items-center space-x-2">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex w-full justify-between items-center group rounded-md gap-x-3 p-2 text-sm font-semibold leading-6 text-foreground hover:bg-gray-200 hover:dark:bg-secondary">
-                      <span>User</span>
+                      <span>{session?.user?.email}</span>
                       <IoIosArrowUp />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
@@ -116,7 +117,10 @@ const Sidebar = () => {
                           <span className="ml-2">Profile</span>
                         </DropdownMenuItem>
                       </Link>
-                      <DropdownMenuItem className="flex items-center cursor-pointer">
+                      <DropdownMenuItem
+                        className="flex items-center cursor-pointer"
+                        onClick={() => signOut()}
+                      >
                         <CiLogout />
                         <span className="ml-2">Logout</span>
                       </DropdownMenuItem>

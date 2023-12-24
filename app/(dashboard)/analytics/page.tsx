@@ -1,21 +1,20 @@
 import { toalUsers } from "@/actions/userActions";
-import AppLayout from "@/components/layouts/app";
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function Home() {
+const Analytics = async () => {
   const count = await toalUsers();
-
   return (
-    <AppLayout>
+    <>
       <div className="p-4 sm:p-4 sm:m-4">
         <div className="flex items-center justify-between mb-4 md:mb-8 lg:mb-12">
           <div className="space-y-1">
             <h2 className="text-2xl text-foreground font-semibold tracking-tight">
-              Dashboard
+              Analytics
             </h2>
             <p className="text-sm text-muted-foreground">
-              All the figures have been fetched from the database
+              List of all the blogs
             </p>
           </div>
         </div>
@@ -57,6 +56,8 @@ export default async function Home() {
           </Card>
         </div>
       </div>
-    </AppLayout>
+    </>
   );
-}
+};
+
+export default Analytics;
