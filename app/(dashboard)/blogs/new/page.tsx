@@ -1,3 +1,4 @@
+import BlogForm from "@/forms/blogForm";
 import React from "react";
 
 const NewBlogPage = () => {
@@ -11,6 +12,10 @@ const NewBlogPage = () => {
             </h2>
             <p className="text-sm text-muted-foreground">Create a new blog</p>
           </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto">
+          <BlogForm />
         </div>
       </div>
     </>
