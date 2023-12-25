@@ -1,8 +1,5 @@
-import { toalUsers } from "@/actions/userActions";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import AppLayout from "@/components/layouts/app";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   return (
@@ -13,7 +10,10 @@ export default async function Home() {
           <h2 className="text-2xl text-foreground font-semibold tracking-tight">
             Dashboard
           </h2>
-          <ThemeToggle />
+          <div className="flex items-center">
+            <ThemeToggle />
+            <Button className="ml-4">Login</Button>
+          </div>
         </div>
       </div>
 
