@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
   const skillsUsed = [
     "NextJs 14",
+    "Typescript",
     "NodeJs",
     "MongodB",
     "Shadcn UI",

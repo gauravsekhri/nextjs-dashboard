@@ -20,18 +20,24 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { fetchUsers } from "@/actions/userActions";
 
-const UsersList = () => {
-  const usersData: any = [
-    {
-      fullName: "Gaurav Sekhri",
-      userName: "gaurav",
-      email: "test@test.com",
-      createdAt: "24/12/2023 19:24PM",
-      isAdmin: true,
-      id: "n13n3vm23",
-    },
-  ];
+const UsersList = async ({ searchParams }: any) => {
+  // const usersData: any = [
+  //   {
+  //     fullName: "Gaurav Sekhri",
+  //     userName: "gaurav",
+  //     email: "test@test.com",
+  //     createdAt: "24/12/2023 19:24PM",
+  //     isAdmin: true,
+  //     id: "n13n3vm23",
+  //   },
+  // ];
+
+  const search = searchParams?.search || "";
+  const page = searchParams?.page || "1";
+
+  const usersData = await fetchUsers(search, page);
 
   return (
     <>
@@ -58,22 +64,24 @@ const UsersList = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Username</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Signup Date</TableHead>
                 <TableHead>Role</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead className="text-right">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {usersData &&
-                usersData.map((ele: any, ei: any) => (
+                usersData?.users?.map((ele: any, ei: any) => (
                   <TableRow key={ei}>
                     <TableCell>{ele.fullName}</TableCell>
-                    <TableCell>{ele.userName}</TableCell>
                     <TableCell>{ele.email}</TableCell>
                     <TableCell>{ele.createdAt}</TableCell>
                     <TableCell>{ele.isAdmin ? "Admin" : "User"}</TableCell>
+                    <TableCell>
+                      {ele?.isVerified ? "Verified" : "Not Verified"}
+                    </TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end">
                       {/* <TooltipProvider delayDuration={0}>
                         <Tooltip>

@@ -1,30 +1,31 @@
+import Posts from "@/models/postsModel";
 import User from "@/models/userModel";
 import { connect } from "@/utils/dbConfig";
 
 connect();
 
-export const toalUsers = async () => {
+export const totalPosts = async () => {
   try {
-    const count = await User.countDocuments();
+    const count = await Posts.countDocuments();
     return count;
   } catch {
     return null;
   }
 };
 
-export const fetchUsers = async (search: string, page: number) => {
+export const fetchPosts = async (search: string, page: number) => {
   const regex = new RegExp(search, "i");
 
   const itemsLimit = 1;
 
   try {
-    const count = await User.find({
-      fullName: { $regex: regex },
+    const count = await Posts.find({
+      title: { $regex: regex },
     }).countDocuments();
-    const users = await User.find({ fullName: { $regex: regex } })
+    const posts = await Posts.find({ title: { $regex: regex } })
       .limit(itemsLimit)
       .skip(itemsLimit * (page - 1));
-    return { users, count };
+    return { posts, count };
   } catch (err: any) {
     console.log(err);
     throw new Error("err");

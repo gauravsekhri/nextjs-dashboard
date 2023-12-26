@@ -1,3 +1,4 @@
+import { fetchPosts } from "@/actions/postsActions";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Button } from "@/components/ui/button";
@@ -13,19 +14,24 @@ import {
 import Link from "next/link";
 import React from "react";
 
-const BlogsList = () => {
-  const postsList = {
-    count: 1,
-    data: [
-      {
-        title: "Universal time management in MERN app",
-        category: "Tech",
-        isPublished: true,
-        createdBy: "gaurav@sekhri.com",
-        createdAt: "26/12/2023 12:30PM",
-      },
-    ],
-  };
+const BlogsList = async ({ searchParams }: any) => {
+  // const postsList = {
+  //   count: 1,
+  //   data: [
+  //     {
+  //       title: "Universal time management in MERN app",
+  //       category: "Tech",
+  //       isPublished: true,
+  //       createdBy: "gaurav@sekhri.com",
+  //       createdAt: "26/12/2023 12:30PM",
+  //     },
+  //   ],
+  // };
+
+  const search = searchParams?.search || "";
+  const page = searchParams?.page || "1";
+
+  const postsList = await fetchPosts(search, page);
 
   return (
     <>
@@ -64,7 +70,7 @@ const BlogsList = () => {
             </TableHeader>
             <TableBody>
               {postsList &&
-                postsList.data.map((ele: any, ei: any) => (
+                postsList?.posts?.map((ele: any, ei: any) => (
                   <TableRow key={ei}>
                     <TableCell>{ele.title}</TableCell>
                     <TableCell>{ele.category}</TableCell>

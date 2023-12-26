@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrafficChart } from "@/components/AnalyticsModule/TrafficChart";
+import { totalPosts } from "@/actions/postsActions";
 
 const Analytics = async () => {
-  const count = await toalUsers();
+  const [users, posts]: any = await Promise.all([toalUsers(), totalPosts()]);
   return (
     <>
       <div className="p-4 sm:p-4 sm:m-4">
@@ -32,7 +33,7 @@ const Analytics = async () => {
               <CardTitle className="text-sm font-medium">Total Posts</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2</div>
+              <div className="text-2xl font-bold">{posts}</div>
             </CardContent>
           </Card>
           <Card>
@@ -58,7 +59,7 @@ const Analytics = async () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{count}</div>
+              <div className="text-2xl font-bold">{users}</div>
             </CardContent>
           </Card>
         </div>
@@ -75,7 +76,7 @@ const Analytics = async () => {
           <Card className="col-span-3">
             <CardHeader>
               <CardTitle>Popular Posts</CardTitle>
-              <CardDescription>You have total 2 posts.</CardDescription>
+              <CardDescription>You have total {posts} posts.</CardDescription>
             </CardHeader>
             <CardContent>{/* <RecentSales /> */}</CardContent>
           </Card>

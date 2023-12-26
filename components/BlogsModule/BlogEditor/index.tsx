@@ -3,7 +3,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
 import {
@@ -38,6 +38,11 @@ interface BlogEditor {
 
 const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
   const [showImgDialog, setShowImgDialog] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -157,23 +162,17 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
     },
   ];
 
+  if (!editor) {
+    return null;
+  }
+
   return (
     <>
-      <ImageUrlDialog
-        isOpen={showImgDialog}
-        onClose={(val: any) => {
-          if (val && val.length > 0) {
-            editor?.chain().focus().setImage({ src: val }).run();
-          }
-          setShowImgDialog(false);
-        }}
-      />
-      {/* <Button onClick={addImage}>setImage</Button> */}
-      {editor && (
+      {editor && isMounted && (
         <>
           <div className="border border-gray-300 dark:border-gray-700 bg-transparent rounded-sm flex my-10 items-center p-2 gap-2">
-            <TooltipProvider>
-              {menuBarFunctions.map((ele: any, ei: any) => (
+            {menuBarFunctions.map((ele: any, ei: any) => (
+              <TooltipProvider>
                 <Tooltip key={ei} delayDuration={0}>
                   <TooltipTrigger>
                     {" "}
@@ -189,10 +188,19 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
                     <div>{ele?.label}</div>
                   </TooltipContent>
                 </Tooltip>
-              ))}
-            </TooltipProvider>
+              </TooltipProvider>
+            ))}
           </div>
           <EditorContent editor={editor} />
+          <ImageUrlDialog
+            isOpen={showImgDialog ?? false}
+            onClose={(val: any) => {
+              if (val && val.length > 0) {
+                editor?.chain().focus().setImage({ src: val }).run();
+              }
+              setShowImgDialog(false);
+            }}
+          />
         </>
       )}
       {/* <EditorProvider extensions={extensions} content={initialText}>
