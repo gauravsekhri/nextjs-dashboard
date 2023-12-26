@@ -15,7 +15,6 @@ import {
 import { RiDraftLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
 import React from "react";
-import ImageUrlDialog from "@/components/BlogsModule/ImageUrlDialog";
 
 const BlogForm = () => {
   return (
@@ -49,7 +48,7 @@ const BlogForm = () => {
         </div>
       </div>
       <BlogEditor
-        initialText="<p>Hello World! 🌎️</p><ul><li><p>one</p></li><li><p>two</p></li></ul>"
+        initialText="<div>Hello World! 🌎️</div><ul><li><div>one</div></li><li><div>two</div></li></ul>"
         onChange={(val: any) => console.log(val)}
       />
     </>

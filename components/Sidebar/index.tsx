@@ -10,7 +10,6 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "../ThemeToggle";
 import {
@@ -60,10 +59,38 @@ const Sidebar = ({ session }: { session: any }) => {
     },
   ];
 
+  const userDropDown = (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="flex w-full justify-between items-center group rounded-md gap-x-3 p-2 text-sm font-semibold leading-6 text-foreground hover:bg-gray-200 hover:dark:bg-secondary">
+        {session?.user?.email}
+        <IoIosArrowUp />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <Link href="/profile">
+          <DropdownMenuItem className="flex items-center cursor-pointer">
+            <FaRegUser />
+
+            <span className="ml-2">Profile</span>
+          </DropdownMenuItem>
+        </Link>
+        <DropdownMenuItem
+          className="flex items-center cursor-pointer"
+          onClick={() => signOut()}
+        >
+          <CiLogout />
+          <span className="ml-2">Logout</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+  // const userDropDown = null;
+
   return (
     <>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-50 dark:bg-black px-6">
           <div className="flex h-16 shrink-0 items-center">
             <p className="text-2xl font-bold tracking-tighter text-black dark:text-white flex items-center">
@@ -97,35 +124,8 @@ const Sidebar = ({ session }: { session: any }) => {
                 </ul>
               </li>
               <li className="-mx-2 mt-auto mb-4">
-                {/* if user is on trial show banner,
-                 * if user is pro show nothing,
-                 * if user is free and showProBanner is true show pro banner
-                 */}
                 <div className="flex justify-between items-center space-x-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="flex w-full justify-between items-center group rounded-md gap-x-3 p-2 text-sm font-semibold leading-6 text-foreground hover:bg-gray-200 hover:dark:bg-secondary">
-                      <span>{session?.user?.email}</span>
-                      <IoIosArrowUp />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <Link href="/profile">
-                        <DropdownMenuItem className="flex items-center cursor-pointer">
-                          <FaRegUser />
-
-                          <span className="ml-2">Profile</span>
-                        </DropdownMenuItem>
-                      </Link>
-                      <DropdownMenuItem
-                        className="flex items-center cursor-pointer"
-                        onClick={() => signOut()}
-                      >
-                        <CiLogout />
-                        <span className="ml-2">Logout</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  {userDropDown}
                   <ThemeToggle />
                 </div>
               </li>
@@ -135,7 +135,6 @@ const Sidebar = ({ session }: { session: any }) => {
       </div>
 
       <div className="lg:pl-72">
-        {/* Navbar */}
         <div className="sticky top-0 z-40 mb-1 flex h-14 shrink-0 items-center gap-x-4 border-b border-gray-50/90 bg-gray-50 dark:border-black/10 dark:bg-black/95 px-4 sm:gap-x-6 sm:px-6 lg:px-8 lg:hidden">
           <button
             type="button"
@@ -152,29 +151,8 @@ const Sidebar = ({ session }: { session: any }) => {
 
           <div className="flex flex-1 gap-x-4 self-stretch items-center lg:gap-x-6 justify-end">
             <div className="flex items-center gap-x-4 lg:gap-x-6">
-              {/* Profile dropdown */}
               <div className="flex justify-between items-center space-x-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="flex w-full justify-between items-center group rounded-md gap-x-3 p-2 text-sm font-semibold leading-6 text-foreground hover:bg-gray-200 hover:dark:bg-secondary">
-                    <span>User</span>
-                    <IoIosArrowDown />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-42">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <Link href="/profile">
-                      <DropdownMenuItem className="flex items-center cursor-pointer">
-                        <FaRegUser />
-
-                        <span className="ml-2">Profile</span>
-                      </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuItem className="flex items-center cursor-pointer">
-                      <CiLogout />
-                      <span className="ml-2">Logout</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {userDropDown}
                 <ThemeToggle />
               </div>
             </div>

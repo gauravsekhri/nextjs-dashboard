@@ -50,6 +50,7 @@ const ImageUrlDialog = ({ isOpen, onClose }: ImageDialog) => {
                 placeholder="https://"
                 value={url}
                 onChange={(e: any) => setUrl(e.target.value)}
+                className="outline-0 focus:ring-0 focus:ring-offset-0"
               />
             </div>
           </div>

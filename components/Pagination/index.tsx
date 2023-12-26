@@ -28,20 +28,23 @@ const Pagination = ({ totalCount }: { totalCount: number }) => {
   return (
     <>
       <div className="flex justify-between items-center border-t-2 border-gray-200 dark:border-gray-800 mt-9 pt-5">
-        <Button
-          variant="ghost"
-          disabled={!hasPrev}
-          onClick={() => handlePageChange("prev")}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          disabled={!hasNext}
-          onClick={() => handlePageChange("next")}
-        >
-          Next
-        </Button>
+        <span>{"Total " + totalCount + " records"}</span>
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            disabled={!hasPrev}
+            onClick={() => handlePageChange("prev")}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            disabled={!hasNext}
+            onClick={() => handlePageChange("next")}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </>
   );

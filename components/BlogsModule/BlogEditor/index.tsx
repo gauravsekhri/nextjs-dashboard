@@ -90,7 +90,7 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
     },
   });
 
-  const addImage = useCallback(() => {
+  const addImage = () => {
     // const url = window.prompt("URL");
 
     // if (url) {
@@ -98,7 +98,7 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
     // }
 
     setShowImgDialog(true);
-  }, [editor]);
+  };
 
   const menuBarFunctions = [
     {
@@ -170,29 +170,31 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
       />
       {/* <Button onClick={addImage}>setImage</Button> */}
       {editor && (
-        <div className="border border-input bg-transparent rounded-sm flex mt-10 items-center p-2 gap-2">
-          <TooltipProvider>
-            {menuBarFunctions.map((ele: any, ei: any) => (
-              <Tooltip key={ei}>
-                <TooltipTrigger>
-                  {" "}
-                  <Toggle
-                    size="sm"
-                    pressed={ele.isPressed}
-                    onPressedChange={() => ele.clickFn()}
-                  >
-                    {ele.icon}
-                  </Toggle>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{ele?.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </TooltipProvider>
-        </div>
+        <>
+          <div className="border border-gray-300 dark:border-gray-700 bg-transparent rounded-sm flex my-10 items-center p-2 gap-2">
+            <TooltipProvider>
+              {menuBarFunctions.map((ele: any, ei: any) => (
+                <Tooltip key={ei} delayDuration={0}>
+                  <TooltipTrigger>
+                    {" "}
+                    <Toggle
+                      size="sm"
+                      pressed={ele.isPressed}
+                      onPressedChange={() => ele.clickFn()}
+                    >
+                      {ele.icon}
+                    </Toggle>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div>{ele?.label}</div>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
+          </div>
+          <EditorContent editor={editor} />
+        </>
       )}
-      <EditorContent editor={editor} />
       {/* <EditorProvider extensions={extensions} content={initialText}>
         T
       </EditorProvider> */}

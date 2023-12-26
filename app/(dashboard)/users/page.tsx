@@ -48,11 +48,11 @@ const UsersList = () => {
         </div>
 
         <div className="mt-5 border-gray-500 bg-gray-50 dark:bg-slate-900 p-5 rounded-lg">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center justify-start mb-10">
             <Search placeholder="Search users..." />
-            <Link href="/dashboard/users/add">
+            {/* <Link href="/dashboard/users/add">
               <Button variant="outline">Add user</Button>
-            </Link>
+            </Link> */}
           </div>
           <Table>
             <TableHeader>
@@ -68,27 +68,27 @@ const UsersList = () => {
             <TableBody>
               {usersData &&
                 usersData.map((ele: any, ei: any) => (
-                  <TableRow>
+                  <TableRow key={ei}>
                     <TableCell>{ele.fullName}</TableCell>
                     <TableCell>{ele.userName}</TableCell>
                     <TableCell>{ele.email}</TableCell>
                     <TableCell>{ele.createdAt}</TableCell>
                     <TableCell>{ele.isAdmin ? "Admin" : "User"}</TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end">
-                      <TooltipProvider delayDuration={0}>
+                      {/* <TooltipProvider delayDuration={0}>
                         <Tooltip>
                           <TooltipTrigger>
-                            <Link href={`/dashboard/users/${ele.id}`}>
-                              <Button type="submit" variant="ghost">
-                                <GrView className="text-green-400" />
-                              </Button>
+                            <Link href={`/dashboard/users/${ele?.id}`}>
+                              <GrView className="text-green-400" />
                             </Link>
                           </TooltipTrigger>
                           <TooltipContent>View</TooltipContent>
                         </Tooltip>
+                      </TooltipProvider>
 
-                        {/* <form action={deleteUser}> */}
-                        <input type="hidden" name="id" value={ele.id} />
+                      <form action={deleteUser}>
+                      <input type="hidden" name="id" value={ele?.id} />
+                      <TooltipProvider delayDuration={0}>
                         <Tooltip>
                           <TooltipTrigger>
                             <Button
@@ -102,8 +102,8 @@ const UsersList = () => {
                           <TooltipContent>Delete</TooltipContent>
                         </Tooltip>
 
-                        {/* </form> */}
                       </TooltipProvider>
+                        </form> */}
                     </TableCell>
                   </TableRow>
                 ))}
