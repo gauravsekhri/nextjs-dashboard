@@ -11,7 +11,7 @@ const Pagination = ({ totalCount }: { totalCount: number }) => {
   const params = new URLSearchParams(searchParams);
 
   const page = searchParams.get("page") || "1";
-  const itemsLimit = 1;
+  const itemsLimit = 10;
 
   const handlePageChange = (type: "prev" | "next") => {
     if (type == "prev") {

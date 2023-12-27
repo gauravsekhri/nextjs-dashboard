@@ -21,6 +21,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { fetchUsers } from "@/actions/userActions";
+import { formatDate } from "@/utils/helperFunctions";
+import { Badge } from "@/components/ui/badge";
 
 const UsersList = async ({ searchParams }: any) => {
   // const usersData: any = [
@@ -77,10 +79,16 @@ const UsersList = async ({ searchParams }: any) => {
                   <TableRow key={ei}>
                     <TableCell>{ele.fullName}</TableCell>
                     <TableCell>{ele.email}</TableCell>
-                    <TableCell>{ele.createdAt}</TableCell>
-                    <TableCell>{ele.isAdmin ? "Admin" : "User"}</TableCell>
+                    <TableCell>{formatDate(ele.createdAt)}</TableCell>
                     <TableCell>
-                      {ele?.isVerified ? "Verified" : "Not Verified"}
+                      <Badge variant="success">
+                        {ele.isAdmin ? "Admin" : "User"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="warn">
+                        {ele?.isVerified ? "Verified" : "Not Verified"}
+                      </Badge>
                     </TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end">
                       {/* <TooltipProvider delayDuration={0}>

@@ -30,6 +30,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import ImageUrlDialog from "../ImageUrlDialog";
+import TextInputDialog from "../TextInputDialog";
 
 interface BlogEditor {
   initialText: string;
@@ -192,9 +193,13 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
             ))}
           </div>
           <EditorContent editor={editor} />
-          <ImageUrlDialog
+
+          <TextInputDialog
+            headTitle="Image Link"
+            description="Enter the url of image you want to insert."
             isOpen={showImgDialog ?? false}
-            onClose={(val: any) => {
+            onClose={() => setShowImgDialog(false)}
+            onSubmit={(val: any) => {
               if (val && val.length > 0) {
                 editor?.chain().focus().setImage({ src: val }).run();
               }

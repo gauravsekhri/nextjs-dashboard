@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     isPublished: {
-      type: String,
-      default: "",
+      type: Boolean,
+      default: true,
     },
   },
   {

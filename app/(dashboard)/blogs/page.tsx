@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatDate } from "@/utils/helperFunctions";
 import Link from "next/link";
 import React from "react";
 
@@ -78,7 +79,7 @@ const BlogsList = async ({ searchParams }: any) => {
                       {ele.isPublished ? "Published" : "Draft"}
                     </TableCell>
                     <TableCell>{ele.createdBy}</TableCell>
-                    <TableCell>{ele.createdAt}</TableCell>
+                    <TableCell>{formatDate(ele?.createdAt)}</TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end"></TableCell>
                   </TableRow>
                 ))}
