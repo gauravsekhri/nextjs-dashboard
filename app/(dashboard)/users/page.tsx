@@ -12,17 +12,11 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import React from "react";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { GrView } from "react-icons/gr";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import { fetchUsers } from "@/actions/userActions";
 import { formatDate } from "@/utils/helperFunctions";
 import { Badge } from "@/components/ui/badge";
+import UserActionsDropDown from "@/components/UsersModule/UserActionsDropDown";
 
 const UsersList = async ({ searchParams }: any) => {
   // const usersData: any = [
@@ -81,45 +75,17 @@ const UsersList = async ({ searchParams }: any) => {
                     <TableCell>{ele.email}</TableCell>
                     <TableCell>{formatDate(ele.createdAt)}</TableCell>
                     <TableCell>
-                      <Badge variant="success">
-                        {ele.isAdmin ? "Admin" : "User"}
+                      <Badge variant={ele.isAdmin ? "superior" : "secondary"}>
+                        {ele.isAdmin ? "Admin" : "Visitor"}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="warn">
+                      <Badge variant={ele?.isVerified ? "success" : "warn"}>
                         {ele?.isVerified ? "Verified" : "Not Verified"}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end">
-                      {/* <TooltipProvider delayDuration={0}>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Link href={`/dashboard/users/${ele?.id}`}>
-                              <GrView className="text-green-400" />
-                            </Link>
-                          </TooltipTrigger>
-                          <TooltipContent>View</TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-
-                      <form action={deleteUser}>
-                      <input type="hidden" name="id" value={ele?.id} />
-                      <TooltipProvider delayDuration={0}>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Button
-                              type="submit"
-                              variant="ghost"
-                              className="ml-2"
-                            >
-                              <RiDeleteBinLine className="text-rose-400" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>Delete</TooltipContent>
-                        </Tooltip>
-
-                      </TooltipProvider>
-                        </form> */}
+                      <UserActionsDropDown email={ele?.email} />
                     </TableCell>
                   </TableRow>
                 ))}

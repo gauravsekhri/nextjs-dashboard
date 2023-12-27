@@ -4,6 +4,7 @@ import Posts from "@/models/postsModel";
 import User from "@/models/userModel";
 import { connect } from "@/utils/dbConfig";
 import { revalidatePath } from "next/cache";
+import { v4 as uuidv4 } from "uuid";
 
 connect();
 
@@ -37,15 +38,46 @@ export const fetchPosts = async (search: string, page: number) => {
 };
 
 export const newPost = async (formData: any) => {
-  const { title, content, createdBy } = formData;
+  const { title, content, createdBy, isPublished } = formData;
 
   try {
-    const postData = new Posts({ title, content, createdBy });
+    const postId = uuidv4();
+    console.log(postId);
+    const postData = new Posts({
+      postId,
+      isPublished,
+      title,
+      content,
+      createdBy,
+    });
 
+    revalidatePath("/blogs");
     return await postData.save();
 
-    // revalidatePath("/blogs");
     // redirect("/blogs");
+  } catch (err: any) {
+    console.log(err);
+  }
+};
+
+export const deletePost = async (postId: any) => {
+  try {
+    const res = await Posts.deleteOne({ postId: postId });
+
+    revalidatePath("/blogs");
+    return res;
+
+    // redirect("/blogs");
+  } catch (err: any) {
+    console.log(err);
+  }
+};
+
+export const postById = async (postId: any) => {
+  try {
+    const res = await Posts.findOne({ postId: postId });
+
+    return res ?? null;
   } catch (err: any) {
     console.log(err);
   }

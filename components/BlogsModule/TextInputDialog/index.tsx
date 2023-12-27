@@ -20,6 +20,7 @@ const TextInputDialog = ({
   description,
   defaultText,
   placeHolder,
+  maxChars,
   onClose,
   onSubmit,
 }: ImageDialog) => {
@@ -36,7 +37,6 @@ const TextInputDialog = ({
 
   useEffect(() => {
     setInputText(defaultText ?? "");
-    console.log("def", defaultText);
   }, [isOpen]);
 
   return (
@@ -67,7 +67,14 @@ const TextInputDialog = ({
               <Button variant="outline">Cancel</Button>
             </DialogClose>
 
-            <Button type="button" onClick={() => onSubmit(inputText)}>
+            <Button
+              type="button"
+              onClick={() => onSubmit(inputText)}
+              disabled={
+                inputText?.length == 0 ||
+                (maxChars ? inputText?.length > maxChars : true)
+              }
+            >
               Submit
             </Button>
           </DialogFooter>

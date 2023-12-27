@@ -21,6 +21,7 @@ import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import TextStyle from "@tiptap/extension-text-style";
+import Placeholder from "@tiptap/extension-placeholder";
 import { Color } from "@tiptap/extension-color";
 import { PiCodeBlockDuotone } from "react-icons/pi";
 import {
@@ -71,6 +72,9 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
           keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
         },
       }),
+      Placeholder.configure({
+        placeholder: "Write something …",
+      }),
       Image,
       BulletList.configure({
         HTMLAttributes: {
@@ -84,7 +88,6 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
         },
       }),
     ],
-    content: initialText,
     onUpdate({ editor }) {
       onChange(editor.getHTML());
     },

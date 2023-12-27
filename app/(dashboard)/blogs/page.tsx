@@ -1,4 +1,5 @@
 import { fetchPosts } from "@/actions/postsActions";
+import PostTableActions from "@/components/BlogsModule/PostTableActions";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,6 @@ const BlogsList = async ({ searchParams }: any) => {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Category</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Created By</TableHead>
                 <TableHead>Created On</TableHead>
@@ -73,14 +73,17 @@ const BlogsList = async ({ searchParams }: any) => {
               {postsList &&
                 postsList?.posts?.map((ele: any, ei: any) => (
                   <TableRow key={ei}>
-                    <TableCell>{ele.title}</TableCell>
-                    <TableCell>{ele.category}</TableCell>
+                    <TableCell className="line-clamp-1 w-[300px] max-w-full">
+                      {ele.title}
+                    </TableCell>
                     <TableCell>
                       {ele.isPublished ? "Published" : "Draft"}
                     </TableCell>
                     <TableCell>{ele.createdBy}</TableCell>
                     <TableCell>{formatDate(ele?.createdAt)}</TableCell>
-                    <TableCell className="text-right min-w-[150px] flex justify-end"></TableCell>
+                    <TableCell className="text-right min-w-[150px] flex justify-end">
+                      <PostTableActions postId={ele?.postId} />
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>

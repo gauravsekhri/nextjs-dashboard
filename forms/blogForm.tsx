@@ -16,7 +16,7 @@ import { RiDraftLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import ConfirmDialog from "@/components/BlogsModule/ConfirmDialog";
+import ConfirmDialog from "@/components/ConfirmDialog";
 import { toast } from "sonner";
 import { newPost } from "@/actions/postsActions";
 import { useRouter } from "next/navigation";
@@ -56,6 +56,7 @@ const BlogForm = () => {
         title: blogTitle,
         content: blogContent,
         createdBy: "gaurav@sekhri.com",
+        isPublished: true,
       });
 
       if (res) {
@@ -89,14 +90,20 @@ const BlogForm = () => {
         <>
           <div className="flex justify-between items-center mb-12">
             <span className="font-bold text-lg flex items-center">
-              <span>{blogTitle}</span>{" "}
+              <div className="max-w-[300px] break-all line-clamp-2 w-fit text-ellipsis">
+                {blogTitle}
+              </div>{" "}
               <FiEdit2
                 className="ml-5 cursor-pointer hover:text-gray-700"
                 onClick={() => setShowTextDialog(true)}
               />
             </span>
             <div className="flex items-center">
-              <Button variant="success" onClick={() => showPublishRequest()}>
+              <Button
+                variant="success"
+                onClick={() => showPublishRequest()}
+                disabled={blogContent?.length == 0}
+              >
                 <MdOutlineCelebration className="mr-2 h-4 w-4" />
                 Publish
               </Button>
@@ -137,6 +144,7 @@ const BlogForm = () => {
             isOpen={showTextDialog ?? false}
             defaultText={blogTitle}
             onClose={() => setShowTextDialog(false)}
+            maxChars={70}
             onSubmit={(val: any) => {
               if (val && val.length > 0) {
                 setBlogTitle(val);
@@ -148,7 +156,9 @@ const BlogForm = () => {
       ) : (
         <>
           <div className="grid grid-cols-1">
-            <Skeleton className="pb-2 min-h-[110px]" />
+            <Skeleton className="pb-2 min-h-[110px] flex justify-center items-center">
+              <div className="py-28">Loading...</div>
+            </Skeleton>
           </div>
         </>
       )}

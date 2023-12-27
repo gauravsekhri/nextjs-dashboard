@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    postId: {
+      type: String,
+      required: [true, "Please provide postId."],
+    },
     title: {
       type: String,
       required: [true, "Please provide title."],
