@@ -2,6 +2,7 @@ import { fetchPosts } from "@/actions/postsActions";
 import PostTableActions from "@/components/BlogsModule/PostTableActions";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -77,7 +78,11 @@ const BlogsList = async ({ searchParams }: any) => {
                       {ele.title}
                     </TableCell>
                     <TableCell>
-                      {ele.isPublished ? "Published" : "Draft"}
+                      <Badge
+                        variant={ele?.isPublished ? "success" : "secondary"}
+                      >
+                        {ele?.isPublished ? "Published" : "Draft"}
+                      </Badge>
                     </TableCell>
                     <TableCell>{ele.createdBy}</TableCell>
                     <TableCell>{formatDate(ele?.createdAt)}</TableCell>

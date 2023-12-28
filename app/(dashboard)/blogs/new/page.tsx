@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import BlogForm from "@/forms/blogForm";
 import React from "react";
+import { getServerSession } from "next-auth";
+import authOptions from "@/utils/authOptions";
 
-const NewBlogPage = () => {
+const NewBlogPage = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <div className="p-4 sm:p-4 sm:m-4">
@@ -16,7 +20,7 @@ const NewBlogPage = () => {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <BlogForm />
+          <BlogForm session={session} />
         </div>
       </div>
     </>

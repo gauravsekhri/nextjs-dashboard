@@ -25,6 +25,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { deletePost } from "@/actions/postsActions";
+import { IoArchiveOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
 const PostTableActions = ({ postId }: { postId: string }) => {
@@ -74,6 +75,12 @@ const PostTableActions = ({ postId }: { postId: string }) => {
             </TooltipTrigger>
             <TooltipContent>Edit</TooltipContent>
           </Tooltip>
+          {/* <Tooltip>
+            <TooltipTrigger>
+              <IoArchiveOutline />
+            </TooltipTrigger>
+            <TooltipContent>Archive</TooltipContent>
+          </Tooltip> */}
           <Tooltip>
             <TooltipTrigger>
               <RiDeleteBin6Line

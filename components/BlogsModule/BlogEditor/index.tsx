@@ -91,6 +91,7 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
     onUpdate({ editor }) {
       onChange(editor.getHTML());
     },
+    content: initialText,
     editorProps: {
       attributes: {
         class:

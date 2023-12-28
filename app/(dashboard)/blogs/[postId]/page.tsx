@@ -1,7 +1,11 @@
 import { postById } from "@/actions/postsActions";
+import BlogForm from "@/forms/blogForm";
+import authOptions from "@/utils/authOptions";
+import { getServerSession } from "next-auth";
 import React from "react";
 
 const EditPost = async ({ params }: { params: { postId: string } }) => {
+  const session = await getServerSession(authOptions);
   const postData = await postById(params.postId);
 
   return (
@@ -17,8 +21,7 @@ const EditPost = async ({ params }: { params: { postId: string } }) => {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          {/* <BlogForm /> */}
-          {postData.content}
+          <BlogForm session={session} postData={postData ?? null} />
         </div>
       </div>
     </>

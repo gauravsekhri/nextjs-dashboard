@@ -73,6 +73,29 @@ export const deletePost = async (postId: any) => {
   }
 };
 
+export const updatePost = async (payload: any) => {
+  try {
+    const { postId, title, content } = payload;
+
+    const res = await Posts.updateOne(
+      { postId: postId },
+      {
+        $set: {
+          title: title,
+          content: content,
+        },
+      }
+    );
+
+    revalidatePath("/blogs");
+    return res;
+
+    // redirect("/blogs");
+  } catch (err: any) {
+    console.log(err);
+  }
+};
+
 export const postById = async (postId: any) => {
   try {
     const res = await Posts.findOne({ postId: postId });
@@ -80,5 +103,17 @@ export const postById = async (postId: any) => {
     return res ?? null;
   } catch (err: any) {
     console.log(err);
+  }
+};
+
+export const lastFivePosts = async () => {
+  try {
+    const posts = await Posts.find({ isPublished: true })
+      .sort({ createdAt: -1 })
+      .limit(5);
+    return posts;
+  } catch (err: any) {
+    console.log(err);
+    throw new Error("err");
   }
 };

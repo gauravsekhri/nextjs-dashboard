@@ -9,10 +9,15 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrafficChart } from "@/components/AnalyticsModule/TrafficChart";
-import { totalPosts } from "@/actions/postsActions";
+import { lastFivePosts, totalPosts } from "@/actions/postsActions";
+import { getLastUploadTime } from "@/utils/helperFunctions";
 
 const Analytics = async () => {
-  const [users, posts]: any = await Promise.all([toalUsers(), totalPosts()]);
+  const [users, posts, fivePosts]: any = await Promise.all([
+    toalUsers(),
+    totalPosts(),
+    lastFivePosts(),
+  ]);
   return (
     <>
       <div className="p-4 sm:p-4 sm:m-4">
@@ -78,7 +83,18 @@ const Analytics = async () => {
               <CardTitle>Popular Posts</CardTitle>
               <CardDescription>You have total {posts} posts.</CardDescription>
             </CardHeader>
-            <CardContent>{/* <RecentSales /> */}</CardContent>
+            <CardContent>
+              <div className="mt-5">
+                {fivePosts.map((ele: any) => (
+                  <div className="mb-2 bg-gray-100 px-4 py-3 rounded-md flex justify-between items-center gap-4 dark:bg-gray-800">
+                    <span>{ele.title}</span>
+                    <span className="italic text-gray-500 text-sm">
+                      {getLastUploadTime(ele?.createdAt)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
           </Card>
         </div>
       </div>

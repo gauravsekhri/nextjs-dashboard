@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GrView } from "react-icons/gr";
 import {
@@ -22,11 +22,37 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { LuUserX2 } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { toast } from "sonner";
+import ConfirmDialog from "@/components/ConfirmDialog";
 
 const UserActionsDropDown = ({ email }: { email: string }) => {
+  const [showDialog, setShowDialog] = useState<boolean>(false);
+
   return (
     <>
-      <DropdownMenu>
+      <div className="flex items-center gap-4">
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger>
+              <LuUserX2
+                onClick={() => toast.info("This feature is under development.")}
+              />
+            </TooltipTrigger>
+            <TooltipContent>Disable user</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <RiDeleteBin6Line
+                className="text-red-400"
+                onClick={() => setShowDialog(true)}
+              />
+            </TooltipTrigger>
+            <TooltipContent>Delete user</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+
+      {/* <DropdownMenu>
         <DropdownMenuTrigger>
           <Button className="ml-2 px-2" variant="ghost">
             <BsThreeDotsVertical className="h-5 w-5" />
@@ -44,7 +70,7 @@ const UserActionsDropDown = ({ email }: { email: string }) => {
             <span className="ml-3">Delete User</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
 
       {/* <TooltipProvider delayDuration={0}>
         <Tooltip>
@@ -70,6 +96,14 @@ const UserActionsDropDown = ({ email }: { email: string }) => {
         </Tooltip>
       </TooltipProvider>
       </form> */}
+
+      <ConfirmDialog
+        key={email}
+        isOpen={showDialog}
+        text={"Are you sure you want to delete this user?"}
+        onConfirm={() => toast.info("This feature is under development.")}
+        onClose={() => setShowDialog(false)}
+      />
     </>
   );
 };
