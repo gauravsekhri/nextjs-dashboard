@@ -2,11 +2,16 @@ import { postById } from "@/actions/postsActions";
 import BlogForm from "@/forms/blogForm";
 import authOptions from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const EditPost = async ({ params }: { params: { postId: string } }) => {
   const session = await getServerSession(authOptions);
   const postData = await postById(params.postId);
+
+  if (!postData) {
+    redirect("/blogs");
+  }
 
   return (
     <>
