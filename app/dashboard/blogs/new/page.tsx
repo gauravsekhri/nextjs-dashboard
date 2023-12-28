@@ -3,6 +3,7 @@ import BlogForm from "@/forms/blogForm";
 import React from "react";
 import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const NewBlogPage = async () => {
   const session = await getServerSession(authOptions);
@@ -19,7 +20,19 @@ const NewBlogPage = async () => {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
+          {/* <Tabs defaultValue="account" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-14">
+              <TabsTrigger value="account">Post Editor</TabsTrigger>
+              <TabsTrigger value="password">SEO Settings</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <BlogForm session={session} />
+            </TabsContent>
+            <TabsContent value="password">
+              Change your seo settings here
+            </TabsContent>
+          </Tabs> */}
           <BlogForm session={session} />
         </div>
       </div>

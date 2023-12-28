@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    metaDescription: {
+      type: String,
+      default: "",
+    },
+    metaKeywords: {
+      type: Array<String>,
+      default: [],
+    },
   },
   {
     timestamps: true,

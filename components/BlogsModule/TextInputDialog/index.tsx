@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ImageDialog } from "@/utils/interfaces";
+import { TextDialog } from "@/utils/interfaces";
 
 const TextInputDialog = ({
   isOpen,
@@ -23,7 +23,7 @@ const TextInputDialog = ({
   maxChars,
   onClose,
   onSubmit,
-}: ImageDialog) => {
+}: TextDialog) => {
   const [inputText, setInputText] = useState(defaultText ?? "");
 
   const openChange = () => {

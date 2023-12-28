@@ -1,4 +1,4 @@
-export interface ImageDialog {
+export interface TextDialog {
   isOpen: boolean;
   headTitle: string;
   description: string;

@@ -21,14 +21,17 @@ import {
 import { RiDraftLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
 import React, { useEffect, useState } from "react";
+import { LuSettings } from "react-icons/lu";
 import { Skeleton } from "@/components/ui/skeleton";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { toast } from "sonner";
 import { newPost, updatePost } from "@/actions/postsActions";
 import { useRouter } from "next/navigation";
 import { FiEdit2 } from "react-icons/fi";
-import { ImageDialog } from "@/utils/interfaces";
 import TextInputDialog from "@/components/BlogsModule/TextInputDialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
   const router = useRouter();
@@ -36,15 +39,10 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [blogTitle, setBlogTitle] = useState<string>("Untitled Post");
   const [blogContent, setBlogContent] = useState<string>("");
+  const [metaDescription, setMetaDescription] = useState<string>("");
+  const [metaKeywords, setMetaKeywords] = useState<Array<string>>([]);
   const [openPublishRequest, setOpenPublishRequest] = useState<boolean>(false);
   const [showTextDialog, setShowTextDialog] = useState<boolean>(false);
-  // const [textDialog, setTextDialog] = useState<ImageDialog>({
-  //   isOpen: false,
-  //   headTitle: "",
-  //   description: "",
-  //   defaultText: "",
-  //   onClose: () => {},
-  // });
 
   useEffect(() => {
     setIsMounted(true);
@@ -53,13 +51,6 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
       setBlogContent(postData?.content);
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (postData) {
-  //     setBlogTitle(postData?.title);
-  //     setBlogContent(postData?.content);
-  //   }
-  // }, [postData]);
 
   const showPublishRequest = () => {
     setOpenPublishRequest(true);
@@ -73,6 +64,8 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
         content: blogContent,
         createdBy: session?.user?.email ?? "",
         isPublished: isPublished,
+        metaDescription: metaDescription,
+        metaKeywords: metaKeywords,
       }),
       {
         loading: isPublished ? "Publishing..." : "Saving draft...",
@@ -84,26 +77,6 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
         finally: () => setOpenPublishRequest(false),
       }
     );
-
-    // toast.loading("Publishing");
-    // try {
-    //   setOpenPublishRequest(false);
-    //   const res = await newPost({
-    //     title: blogTitle,
-    //     content: blogContent,
-    //     createdBy: "gaurav@sekhri.com",
-    //     isPublished: true,
-    //   });
-
-    //   if (res) {
-    //     toast.success("Published");
-    //     router.push("/blogs");
-    //   } else {
-    //     toast.error("Unable to publish");
-    //   }
-    // } catch {
-    //   toast.error("Unable to publish");
-    // }
   };
 
   const handleUpdate = async () => {
@@ -124,25 +97,11 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
     );
   };
 
-  // const handleTitleEdit = () => {
-  //       setTextDialog({
-  //     headTitle: "Image Link",
-  //     description: "Enter the url of image you want to insert.",
-  //     isOpen: showImgDialog ?? false,
-  //     onClose: (val: any) => {
-  //       if (val && val.length > 0) {
-  //         editor?.chain().focus().setImage({ src: val }).run();
-  //       }
-  //       setShowImgDialog(false);
-  //     },
-  //   });
-  // }
-
   return (
     <>
       {isMounted ? (
         <>
-          <div className="flex justify-between items-center mb-12">
+          <div className="flex justify-between items-center mb-14">
             <span className="font-bold text-lg flex items-center">
               <div className="max-w-[300px] break-all line-clamp-2 w-fit text-ellipsis">
                 {blogTitle}
@@ -211,10 +170,73 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
               )}
             </div>
           </div>
-          <BlogEditor
-            initialText={blogContent}
-            onChange={(val: any) => setBlogContent(val)}
-          />
+
+          <Tabs defaultValue="account" className="w-full ">
+            <TabsList className="grid w-full grid-cols-2 mb-7 h-[100px] dark:bg-gray-500">
+              <TabsTrigger value="account">
+                <div className="flex items-center gap-2">
+                  <FiEdit2 />
+                  <span>Editor</span>
+                </div>
+              </TabsTrigger>
+              <TabsTrigger value="password">
+                {" "}
+                <div className="flex items-center gap-2">
+                  <LuSettings />
+                  <span>Settings</span>
+                </div>
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <BlogEditor
+                initialText={blogContent}
+                onChange={(val: any) => setBlogContent(val)}
+              />
+            </TabsContent>
+            <TabsContent value="password">
+              <div className="my-10 p-2">
+                <div className="text-lg font-bold mb-6">Display Properties</div>
+                <div className="mb-8">
+                  <div className="text-md mb-2">Post Title</div>
+                  <Input
+                    type="text"
+                    value={blogTitle}
+                    onChange={(e: any) => setBlogTitle(e.target.value)}
+                  />
+                </div>
+                <div className="mb-10">
+                  <div className="text-md mb-2">Post Image Link</div>
+                  <Input
+                    type="text"
+                    value={blogTitle}
+                    onChange={(e: any) => setBlogTitle(e.target.value)}
+                    placeholder="https://"
+                  />
+                </div>
+                <Separator />
+                <div className="text-lg font-bold mt-8 mb-6">
+                  SEO Properties
+                </div>
+                <div className="mb-8">
+                  <div className="text-md mb-2">Meta Description</div>
+                  <Input
+                    type="text"
+                    value={metaDescription}
+                    onChange={(e: any) => setMetaDescription(e.target.value)}
+                  />
+                </div>
+                <div className="mb-8">
+                  <div className="text-md mb-2">Meta Keywords</div>
+                  <Input
+                    type="text"
+                    value={metaKeywords.join(",")}
+                    onChange={(e: any) => setBlogTitle(e.target.value)}
+                  />
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+
           <ConfirmDialog
             isOpen={openPublishRequest}
             text={"Are you sure you want to publish your post?"}
