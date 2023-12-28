@@ -1,16 +1,37 @@
-import { postByRouteLink } from "@/actions/postsActions";
+import { postByRouteLink, postPublicData } from "@/actions/postsActions";
 import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { formatDate } from "@/utils/helperFunctions";
+import { Metadata, ResolvingMetadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: { routeLink: string };
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const postData: any = await postByRouteLink(params.routeLink);
+
+  return {
+    title: postData.title,
+    // openGraph: {
+    //   images: ['/some-specific-page-image.jpg', ...previousImages],
+    // },
+  };
+}
 
 const PublicPostScreen = async ({
   params,
 }: {
   params: { routeLink: string };
 }) => {
-  const postData: any = await postByRouteLink(params.routeLink);
+  const postData: any = await postPublicData(params.routeLink);
 
   if (!postData) {
     redirect("/not found");
@@ -19,9 +40,12 @@ const PublicPostScreen = async ({
   return (
     <>
       <div className="p-4 flex items-center justify-between ">
-        <h2 className="text-2xl text-foreground font-semibold tracking-tight">
-          Syntax Scrolls
-        </h2>
+        <Link href="/">
+          <h2 className="text-2xl text-foreground font-semibold tracking-tight">
+            Syntax Scrolls
+          </h2>
+        </Link>
+
         <div className="flex items-center">
           <ThemeToggle />
         </div>

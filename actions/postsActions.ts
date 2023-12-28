@@ -115,7 +115,23 @@ export const postById = async (postId: any) => {
 
 export const postByRouteLink = async (routeLink: any) => {
   try {
-    const res = await Posts.findOne({ routeLink: routeLink });
+    const res = await Posts.findOne({
+      routeLink: routeLink,
+    });
+
+    return res ?? null;
+  } catch (err: any) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const postPublicData = async (routeLink: any) => {
+  try {
+    const res = await Posts.findOne({
+      routeLink: routeLink,
+      isPublished: true,
+    });
 
     return res ?? null;
   } catch (err: any) {
