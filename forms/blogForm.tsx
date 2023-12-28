@@ -38,6 +38,9 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [blogTitle, setBlogTitle] = useState<string>("Untitled Post");
+  const [blogImage, setBlogImage] = useState<string>(
+    "https://www.ochch.org/wp-content/themes/mast/images/empty-photo.jpg"
+  );
   const [blogContent, setBlogContent] = useState<string>("");
   const [metaDescription, setMetaDescription] = useState<string>("");
   const [metaKeywords, setMetaKeywords] = useState<Array<string>>([]);
@@ -60,7 +63,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
     toast.promise(
       newPost({
         title: blogTitle,
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYuHR1mLPdZqvbz6bxp_dmOMFenlgXp0sSqA&usqp=CAU",
+        img: blogImage,
         content: blogContent,
         createdBy: session?.user?.email ?? "",
         isPublished: isPublished,
@@ -208,8 +211,8 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
                   <div className="text-md mb-2">Post Image Link</div>
                   <Input
                     type="text"
-                    value={blogTitle}
-                    onChange={(e: any) => setBlogTitle(e.target.value)}
+                    value={blogImage}
+                    onChange={(e: any) => setBlogImage(e.target.value)}
                     placeholder="https://"
                   />
                 </div>
