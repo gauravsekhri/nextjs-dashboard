@@ -69,6 +69,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
     toast.promise(
       newPost({
         title: blogTitle,
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYuHR1mLPdZqvbz6bxp_dmOMFenlgXp0sSqA&usqp=CAU",
         content: blogContent,
         createdBy: session?.user?.email ?? "",
         isPublished: isPublished,
@@ -76,7 +77,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
       {
         loading: isPublished ? "Publishing..." : "Saving draft...",
         success: () => {
-          router.push("/blogs");
+          router.push("/dashboard/blogs");
           return isPublished ? "Published" : "Saved successfully";
         },
         error: isPublished ? "Unable to publish" : "Unable to save draft",
@@ -115,7 +116,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
       {
         loading: "Updating post...",
         success: () => {
-          router.push("/blogs");
+          router.push("/dashboard/blogs");
           return "Updated successfully";
         },
         error: "Unable to update post",

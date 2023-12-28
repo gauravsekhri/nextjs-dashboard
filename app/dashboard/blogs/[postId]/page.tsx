@@ -10,7 +10,7 @@ const EditPost = async ({ params }: { params: { postId: string } }) => {
   const postData = await postById(params.postId);
 
   if (!postData) {
-    redirect("/blogs");
+    redirect("/dashboard/blogs");
   }
 
   return (

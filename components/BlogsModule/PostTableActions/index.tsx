@@ -28,7 +28,13 @@ import { deletePost } from "@/actions/postsActions";
 import { IoArchiveOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-const PostTableActions = ({ postId }: { postId: string }) => {
+const PostTableActions = ({
+  routeLink,
+  postId,
+}: {
+  routeLink: string;
+  postId: string;
+}) => {
   const [showDialog, setShowDialog] = useState<boolean>(false);
 
   // const handleDelete = async () => {
@@ -63,13 +69,15 @@ const PostTableActions = ({ postId }: { postId: string }) => {
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger>
-              <GrView className="text-green-400" />
+              <Link href={"/post/" + routeLink} target="_blank">
+                <GrView className="text-green-400" />
+              </Link>
             </TooltipTrigger>
             <TooltipContent>View</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>
-              <Link href={"/blogs/" + postId}>
+              <Link href={"/dashboard/blogs/" + postId}>
                 <FiEdit2 />
               </Link>
             </TooltipTrigger>

@@ -38,21 +38,21 @@ const Sidebar = ({ session }: { session: any }) => {
   const navigation = [
     {
       name: "Analytics",
-      href: "/analytics",
+      href: "/dashboard/analytics",
       disabled: false,
       current: false,
       icon: MdOutlineDashboard,
     },
     {
       name: "Users",
-      href: "/users",
+      href: "/dashboard/users",
       disabled: false,
       current: false,
       icon: LuUsers2,
     },
     {
       name: "Blogs",
-      href: "/blogs",
+      href: "/dashboard/blogs",
       disabled: false,
       current: false,
       icon: TfiWrite,

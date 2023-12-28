@@ -72,7 +72,11 @@ const TextInputDialog = ({
               onClick={() => onSubmit(inputText)}
               disabled={
                 inputText?.length == 0 ||
-                (maxChars ? inputText?.length > maxChars : true)
+                (maxChars
+                  ? inputText?.length > maxChars
+                    ? true
+                    : false
+                  : false)
               }
             >
               Submit

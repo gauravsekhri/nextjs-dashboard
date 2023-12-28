@@ -6,11 +6,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide postId."],
     },
+    img: {
+      type: String,
+      required: [true, "Please provide image."],
+    },
     title: {
       type: String,
       required: [true, "Please provide title."],
     },
     description: {
+      type: String,
+      default: "",
+    },
+    routeLink: {
       type: String,
       default: "",
     },

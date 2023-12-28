@@ -48,7 +48,7 @@ const BlogsList = async ({ searchParams }: any) => {
               List of all the blogs
             </p>
           </div>
-          <Link href="/blogs/new">
+          <Link href="/dashboard/blogs/new">
             <Button variant="link">Create Blog</Button>
           </Link>
         </div>
@@ -87,7 +87,10 @@ const BlogsList = async ({ searchParams }: any) => {
                     <TableCell>{ele.createdBy}</TableCell>
                     <TableCell>{formatDate(ele?.createdAt)}</TableCell>
                     <TableCell className="text-right min-w-[150px] flex justify-end">
-                      <PostTableActions postId={ele?.postId} />
+                      <PostTableActions
+                        routeLink={ele?.routeLink}
+                        postId={ele?.postId}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}

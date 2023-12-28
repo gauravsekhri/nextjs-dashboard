@@ -62,3 +62,18 @@ export const getLastUploadTime = (uploadTime: any) => {
     return "-";
   }
 };
+
+export const getRouteLink = (sentence: string) => {
+  if (sentence && sentence?.length > 0) {
+    const cleanedText = sentence
+      .replace(/[^\w\s]/g, "")
+      .replace(/\s+/g, " ")
+      .toLowerCase();
+
+    const dashSeparatedText = cleanedText.split(" ").join("-");
+
+    return dashSeparatedText;
+  } else {
+    return sentence ?? "-";
+  }
+};

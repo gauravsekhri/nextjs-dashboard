@@ -3,6 +3,7 @@
 import Posts from "@/models/postsModel";
 import User from "@/models/userModel";
 import { connect } from "@/utils/dbConfig";
+import { getRouteLink } from "@/utils/helperFunctions";
 import { revalidatePath } from "next/cache";
 import { v4 as uuidv4 } from "uuid";
 
@@ -38,25 +39,30 @@ export const fetchPosts = async (search: string, page: number) => {
 };
 
 export const newPost = async (formData: any) => {
-  const { title, content, createdBy, isPublished } = formData;
+  const { title, img, content, createdBy, isPublished } = formData;
 
   try {
     const postId = uuidv4();
-    console.log(postId);
+
+    const routeLink = getRouteLink(title);
+
     const postData = new Posts({
       postId,
+      img,
       isPublished,
       title,
       content,
+      routeLink,
       createdBy,
     });
 
-    revalidatePath("/blogs");
+    revalidatePath("/dashboard/blogs");
     return await postData.save();
 
     // redirect("/blogs");
   } catch (err: any) {
     console.log(err);
+    return err;
   }
 };
 
@@ -64,7 +70,7 @@ export const deletePost = async (postId: any) => {
   try {
     const res = await Posts.deleteOne({ postId: postId });
 
-    revalidatePath("/blogs");
+    revalidatePath("/dashboard/blogs");
     return res;
 
     // redirect("/blogs");
@@ -87,7 +93,7 @@ export const updatePost = async (payload: any) => {
       }
     );
 
-    revalidatePath("/blogs");
+    revalidatePath("/dashboard/blogs");
     return res;
 
     // redirect("/blogs");
@@ -103,6 +109,18 @@ export const postById = async (postId: any) => {
     return res ?? null;
   } catch (err: any) {
     console.log(err);
+    return null;
+  }
+};
+
+export const postByRouteLink = async (routeLink: any) => {
+  try {
+    const res = await Posts.findOne({ routeLink: routeLink });
+
+    return res ?? null;
+  } catch (err: any) {
+    console.log(err);
+    return null;
   }
 };
 
