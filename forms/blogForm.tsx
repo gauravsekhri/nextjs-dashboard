@@ -32,6 +32,7 @@ import TextInputDialog from "@/components/BlogsModule/TextInputDialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import KeywordsDialog from "@/components/BlogsModule/KeywordsDialog";
 
 const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
   const router = useRouter();
@@ -45,6 +46,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
   const [metaDescription, setMetaDescription] = useState<string>("");
   const [metaKeywords, setMetaKeywords] = useState<Array<string>>([]);
   const [openPublishRequest, setOpenPublishRequest] = useState<boolean>(false);
+  const [showKeywordDialog, setShowKeywordDialog] = useState<boolean>(false);
   const [showTextDialog, setShowTextDialog] = useState<boolean>(false);
 
   useEffect(() => {
@@ -88,6 +90,8 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
         postId: postData?.postId,
         title: blogTitle,
         content: blogContent,
+        metaDescription: metaDescription,
+        metaKeywords: metaKeywords,
       }),
       {
         loading: "Updating post...",
@@ -232,8 +236,9 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
                   <div className="text-md mb-2">Meta Keywords</div>
                   <Input
                     type="text"
-                    value={metaKeywords.join(",")}
-                    onChange={(e: any) => setBlogTitle(e.target.value)}
+                    value={metaKeywords.join(", ")}
+                    readOnly
+                    onClick={() => setShowKeywordDialog(true)}
                   />
                 </div>
               </div>
@@ -246,6 +251,7 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
             onConfirm={() => handlePublish(true)}
             onClose={() => setOpenPublishRequest(false)}
           />
+
           <TextInputDialog
             headTitle="Blog Title"
             description="Give an attracting title to your post."
@@ -259,6 +265,13 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
               }
               setShowTextDialog(false);
             }}
+          />
+
+          <KeywordsDialog
+            isOpen={showKeywordDialog}
+            defaultValues={metaKeywords}
+            onSubmission={(val: any) => setMetaKeywords(val)}
+            onClose={() => setShowKeywordDialog(false)}
           />
         </>
       ) : (

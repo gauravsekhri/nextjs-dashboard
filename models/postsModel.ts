@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     metaKeywords: {
-      type: Array<String>,
+      type: [],
       default: [],
     },
   },

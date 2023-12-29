@@ -1,4 +1,5 @@
 import { toalUsers } from "@/actions/userActions";
+import { totalViews } from "@/actions/viewsActions";
 import React from "react";
 import {
   Card,
@@ -13,10 +14,11 @@ import { lastFivePosts, totalPosts } from "@/actions/postsActions";
 import { getLastUploadTime } from "@/utils/helperFunctions";
 
 const Analytics = async () => {
-  const [users, posts, fivePosts]: any = await Promise.all([
+  const [users, posts, fivePosts, viewsCount]: any = await Promise.all([
     toalUsers(),
     totalPosts(),
     lastFivePosts(),
+    totalViews(),
   ]);
   return (
     <>
@@ -46,7 +48,7 @@ const Analytics = async () => {
               <CardTitle className="text-sm font-medium">Total Views</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2,000</div>
+              <div className="text-2xl font-bold">{viewsCount}</div>
             </CardContent>
           </Card>
           <Card>

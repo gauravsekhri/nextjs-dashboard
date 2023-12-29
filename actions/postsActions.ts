@@ -39,29 +39,57 @@ export const fetchPosts = async (search: string, page: number) => {
 };
 
 export const newPost = async (formData: any) => {
-  const { title, img, content, createdBy, isPublished } = formData;
+  const {
+    title,
+    img,
+    content,
+    createdBy,
+    isPublished,
+    metaDescription,
+    metaKeywords,
+  } = formData;
 
   try {
-    const postId = uuidv4();
-
+    const postId = await uuidv4();
     const routeLink = getRouteLink(title);
 
-    const postData = new Posts({
+    // console.log("metaDescription", metaDescription);
+
+    const reqMetaKeywords = JSON.parse(JSON.stringify(metaKeywords));
+    console.log("payload", {
       postId,
       img,
-      isPublished,
       title,
       content,
       routeLink,
       createdBy,
+      isPublished,
+      metaDescription,
+      metaKeywords: reqMetaKeywords,
     });
 
-    revalidatePath("/dashboard/blogs");
-    return await postData.save();
+    const postData = await new Posts({
+      postId,
+      img,
+      title,
+      content,
+      routeLink,
+      createdBy,
+      isPublished,
+      metaDescription,
+      metaKeywords: "reqMetaKeywords",
+    });
+
+    // const res = await postData.save();
+    // console.log(res);
+
+    // revalidatePath("/dashboard/blogs");
+    // return res;
+    return postData;
 
     // redirect("/blogs");
   } catch (err: any) {
-    console.log(err);
+    console.log("err", err);
     return err;
   }
 };
@@ -81,7 +109,9 @@ export const deletePost = async (postId: any) => {
 
 export const updatePost = async (payload: any) => {
   try {
-    const { postId, title, content } = payload;
+    const { postId, title, content, metaDescription, metaKeywords } = payload;
+
+    console.log("update payload", payload);
 
     const res = await Posts.updateOne(
       { postId: postId },
@@ -89,6 +119,8 @@ export const updatePost = async (payload: any) => {
         $set: {
           title: title,
           content: content,
+          metaDescription: metaDescription,
+          metaKeywords: metaKeywords,
         },
       }
     );

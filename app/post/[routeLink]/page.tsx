@@ -1,5 +1,6 @@
 import { postByRouteLink, postPublicData } from "@/actions/postsActions";
 import Footer from "@/components/Footer";
+import PostActivityTracker from "@/components/PostActivityTracker";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { formatDate } from "@/utils/helperFunctions";
 import { Metadata, ResolvingMetadata } from "next";
@@ -20,11 +21,29 @@ export async function generateMetadata(
 
   return {
     title: postData.title,
+    description: postData.metaDescription + " | Syntax Scrolls | Gaurav Sekhri",
+    keywords: postData.metaKeywords,
     // openGraph: {
     //   images: ['/some-specific-page-image.jpg', ...previousImages],
     // },
   };
 }
+
+// export const metadata = {
+//   title: {
+//     default: 'HealthCare Biodiversity',
+//     template: '%s | HealthCare Biodiversity'
+//   },
+//   description: {
+//     default: 'The Dynamic & Powerful Blog',
+//     template: '%s | HealthCare Biodiversity'
+//   },
+//   referrer: 'origin-when-cross-origin',
+//   keywords: ['Next.js', 'React', 'JavaScript', 'HealthCare', 'Biodiversity'],
+//   authors: [
+//     { name: 'Seb', url: 'https://github.com/arshcode' }
+//   ]
+// }
 
 const PublicPostScreen = async ({
   params,
@@ -90,6 +109,7 @@ const PublicPostScreen = async ({
       </main>
 
       <Footer />
+      <PostActivityTracker postId={postData.postId} />
     </>
   );
 };

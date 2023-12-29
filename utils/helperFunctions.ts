@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const formatDate = (payload: any) => {
   try {
     const date: any = new Date(payload);
@@ -64,16 +66,33 @@ export const getLastUploadTime = (uploadTime: any) => {
 };
 
 export const getRouteLink = (sentence: string) => {
-  if (sentence && sentence?.length > 0) {
-    const cleanedText = sentence
-      .replace(/[^\w\s]/g, "")
-      .replace(/\s+/g, " ")
-      .toLowerCase();
+  try {
+    if (sentence && sentence?.length > 0) {
+      const cleanedText = sentence
+        .replace(/[^\w\s]/g, "")
+        .replace(/\s+/g, " ")
+        .toLowerCase();
 
-    const dashSeparatedText = cleanedText.split(" ").join("-");
+      const dashSeparatedText = cleanedText.split(" ").join("-");
 
-    return dashSeparatedText;
-  } else {
+      return dashSeparatedText;
+    } else {
+      return sentence ?? "-";
+    }
+  } catch (err: any) {
+    console.log(err);
     return sentence ?? "-";
   }
+};
+
+export const getIpAndCountry = () => {
+  return new Promise((res: any, rej: any) => {
+    axios.get("https://get.geojs.io/v1/ip/geo.js").then((response: any) => {
+      res({
+        country: response.data.match(/"country":"([^"]+)"/)[1],
+        ip: response.data.match(/"ip":"([^"]+)"/)[1],
+        city: response.data.match(/"city":"([^"]+)"/)[1],
+      });
+    });
+  });
 };
