@@ -125,7 +125,7 @@ export default async function Home() {
                     </p>
                     <div className="mt-3 flex justify-between items-center w-full">
                       <span className="font-bold text-sm italic text-gray-500">
-                        Gaurav Sekhri
+                        {elem?.userFullname}
                       </span>
                       <span className="text-xs text-gray-600 font-semibold">
                         {formatPostDate(elem?.createdAt)}

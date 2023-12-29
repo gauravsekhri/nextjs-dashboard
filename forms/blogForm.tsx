@@ -54,6 +54,8 @@ const BlogForm = ({ session, postData }: { session: any; postData?: any }) => {
     if (postData) {
       setBlogTitle(postData?.title);
       setBlogContent(postData?.content);
+      setMetaDescription(postData?.metaDescription);
+      setMetaKeywords(postData?.metaKeywords);
     }
   }, []);
 

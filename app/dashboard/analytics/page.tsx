@@ -1,5 +1,9 @@
 import { toalUsers } from "@/actions/userActions";
-import { totalViews } from "@/actions/viewsActions";
+import {
+  totalViews,
+  viewActivity,
+  viewChartData,
+} from "@/actions/viewsActions";
 import React from "react";
 import {
   Card,
@@ -12,13 +16,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TrafficChart } from "@/components/AnalyticsModule/TrafficChart";
 import { lastFivePosts, totalPosts } from "@/actions/postsActions";
 import { getLastUploadTime } from "@/utils/helperFunctions";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import TargetChart from "@/components/AnalyticsModule/TargetChart";
 
 const Analytics = async () => {
-  const [users, posts, fivePosts, viewsCount]: any = await Promise.all([
+  const [
+    users,
+    posts,
+    fivePosts,
+    viewsCount,
+    recentActivity,
+    trafficData,
+  ]: any = await Promise.all([
     toalUsers(),
     totalPosts(),
     lastFivePosts(),
     totalViews(),
+    viewActivity(),
+    viewChartData(),
   ]);
   return (
     <>
@@ -73,11 +88,12 @@ const Analytics = async () => {
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-5">
           <Card className="col-span-4">
-            <CardHeader>
-              <CardTitle className="mb-8">Traffic</CardTitle>
+            <CardHeader className="mb-8">
+              <CardTitle>Traffic</CardTitle>
+              <CardDescription>Traffic analysis on each date.</CardDescription>
             </CardHeader>
             <CardContent className="pl-2">
-              <TrafficChart />
+              <TrafficChart data={trafficData} />
             </CardContent>
           </Card>
           <Card className="col-span-3">
@@ -96,6 +112,46 @@ const Analytics = async () => {
                   </div>
                 ))}
               </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-5">
+          <Card className="col-span-3">
+            <CardHeader className="mb-4">
+              <CardTitle>Recent Activities</CardTitle>
+              <CardDescription>
+                Realtime view activity of your posts.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-4">
+              <ScrollArea className="h-[400px]">
+                <div className="mt-5 pl-2">
+                  {recentActivity.map((ele: any) => (
+                    <div className="mb-2 bg-gray-100 px-4 py-3 rounded-md dark:bg-gray-800 italic text-gray-500 text-sm lowercase">
+                      Someone
+                      {" viewed a post " +
+                        getLastUploadTime(ele?.time) +
+                        " in " +
+                        ele?.city +
+                        "," +
+                        ele?.country +
+                        "."}
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+          <Card className="col-span-4">
+            <CardHeader className="mb-8">
+              <CardTitle>Target</CardTitle>
+              <CardDescription>
+                See your current traget progress
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <TargetChart />
             </CardContent>
           </Card>
         </div>

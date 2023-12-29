@@ -40,9 +40,75 @@ export const fetchPosts = async (search: string, page: number) => {
 
 export const fetchAllPublicPosts = async () => {
   try {
-    const posts = await Posts.find({ isPublished: true }).sort({
-      createdAt: -1,
-    });
+    const posts = await Posts.aggregate([
+      {
+        $match: {
+          isPublished: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "createdBy",
+          foreignField: "email",
+          as: "userDetails",
+        },
+      },
+      {
+        $lookup: {
+          from: "views",
+          localField: "postId",
+          foreignField: "postId",
+          as: "viewsDetails",
+        },
+      },
+      {
+        $addFields: {
+          userFullname: {
+            $arrayElemAt: ["$userDetails.fullName", 0],
+          },
+          userAvatarUrl: {
+            $arrayElemAt: ["$userDetails.avatarUrl", 0],
+          },
+          viewsData: {
+            $cond: {
+              if: {
+                $eq: [
+                  {
+                    $size: "$viewsDetails",
+                  },
+                  0,
+                ],
+              },
+              then: [],
+              else: {
+                $arrayElemAt: ["$viewsDetails.viewsData", 0],
+              },
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          postId: 1,
+          img: 1,
+          title: 1,
+          content: 1,
+          metaDescription: 1,
+          metaKeywords: 1,
+          routeLink: 1,
+          userFullname: 1,
+          userAvatarUrl: 1,
+          createdAt: -1,
+          viewCount: {
+            $size: "$viewsData",
+          },
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+    ]);
     return posts;
   } catch (err: any) {
     console.log(err);
@@ -64,21 +130,8 @@ export const newPost = async (formData: any) => {
   try {
     const postId = await uuidv4();
     const routeLink = getRouteLink(title);
-
     // console.log("metaDescription", metaDescription);
-
-    const reqMetaKeywords = JSON.parse(JSON.stringify(metaKeywords));
-    console.log("payload", {
-      postId,
-      img,
-      title,
-      content,
-      routeLink,
-      createdBy,
-      isPublished,
-      metaDescription,
-      metaKeywords: reqMetaKeywords,
-    });
+    // const reqMetaKeywords = JSON.parse(JSON.stringify(metaKeywords));
 
     const postData = await new Posts({
       postId,
@@ -89,15 +142,17 @@ export const newPost = async (formData: any) => {
       createdBy,
       isPublished,
       metaDescription,
-      metaKeywords: "reqMetaKeywords",
+      metaKeywords,
     });
 
-    // const res = await postData.save();
+    const res = await postData.save();
     // console.log(res);
 
     // revalidatePath("/dashboard/blogs");
     // return res;
-    return postData;
+    // return postData;
+
+    return true;
 
     // redirect("/blogs");
   } catch (err: any) {

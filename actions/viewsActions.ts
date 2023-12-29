@@ -64,3 +64,71 @@ export const totalViews = async () => {
     return 0;
   }
 };
+
+export const viewActivity = async () => {
+  try {
+    const recents = await Views.aggregate([
+      {
+        $unwind: "$viewsData",
+      },
+      {
+        $sort: { "viewsData.time": -1 },
+      },
+      {
+        $project: {
+          postId: 1,
+          city: "$viewsData.city",
+          country: "$viewsData.country",
+          time: "$viewsData.time",
+        },
+      },
+    ]);
+    return recents;
+  } catch (err: any) {
+    console.log(err);
+    return [];
+  }
+};
+
+export const viewChartData = async () => {
+  try {
+    const chartData = await Views.aggregate([
+      {
+        $unwind: "$viewsData",
+      },
+      { $replaceRoot: { newRoot: "$viewsData" } },
+
+      {
+        $addFields: {
+          date: {
+            $dateToString: {
+              format: "%Y-%m-%d",
+              date: "$time",
+            },
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$date",
+          // list: { $push: "$$ROOT" },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+      {
+        $project: {
+          _id: 0,
+          date: "$_id",
+          count: 1,
+        },
+      },
+    ]);
+    return chartData;
+  } catch (err: any) {
+    console.log(err);
+    return [];
+  }
+};
