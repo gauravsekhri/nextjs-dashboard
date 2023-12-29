@@ -2,7 +2,7 @@ import { postByRouteLink, postPublicData } from "@/actions/postsActions";
 import Footer from "@/components/Footer";
 import PostActivityTracker from "@/components/PostActivityTracker";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { formatDate } from "@/utils/helperFunctions";
+import { formatDate, formatPostDate } from "@/utils/helperFunctions";
 import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -90,7 +90,7 @@ const PublicPostScreen = async ({
                     </a>
                     <p className="text-base text-gray-500 dark:text-gray-400">
                       <time dateTime="2022-02-08" title="February 8th, 2022">
-                        {formatDate(postData?.createdAt)}
+                        {formatPostDate(postData?.createdAt)}
                       </time>
                     </p>
                   </div>

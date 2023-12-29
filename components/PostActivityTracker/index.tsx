@@ -8,18 +8,23 @@ import { viewCapture } from "@/actions/viewsActions";
 const PostActivityTracker = ({ postId }: { postId: string }) => {
   const storeTracking = async () => {
     try {
-      const data: any = await getIpAndCountry();
+      const localValue = localStorage.getItem(postId);
 
-      const userData = {
-        ...data,
-        time: new Date(),
-      };
+      if (!localValue) {
+        const data: any = await getIpAndCountry();
 
-      const capture = await viewCapture({
-        postId,
-        userData,
-      });
-      console.log(data);
+        const userData = {
+          ...data,
+          time: new Date(),
+        };
+
+        const capture = await viewCapture({
+          postId,
+          userData,
+        });
+
+        localStorage.setItem(postId, "1");
+      }
     } catch (err: any) {
       console.log(err);
     }
@@ -27,6 +32,7 @@ const PostActivityTracker = ({ postId }: { postId: string }) => {
 
   useEffect(() => {
     storeTracking();
+    console.log("effect");
   }, []);
 
   return <></>;

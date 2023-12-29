@@ -8,11 +8,25 @@ connect();
 export const viewCapture = async (formData: any) => {
   const { postId, userData } = formData;
 
+  console.log("called");
+
   try {
     const postData = await Views.findOne({ postId: postId });
 
     if (postData) {
-      //existing
+      let updatedViewsData = [...postData.viewsData];
+      updatedViewsData.push(userData);
+
+      const res = await Views.updateOne(
+        { postId: postId },
+        {
+          $set: {
+            viewsData: updatedViewsData,
+          },
+        }
+      );
+
+      return res;
     } else {
       const newViewDoc = new Views({
         postId: postId,

@@ -31,6 +31,37 @@ export const formatDate = (payload: any) => {
   }
 };
 
+export const formatPostDate = (payload: string) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const inputDate: any = new Date(payload);
+
+  if (!payload || payload?.length == 0 || isNaN(inputDate)) {
+    return "-";
+  }
+
+  const day = inputDate.getDate();
+  const monthIndex = inputDate.getMonth();
+  const year = inputDate.getFullYear();
+
+  const formattedDate = `${day} ${months[monthIndex]} ${year}`;
+
+  return formattedDate;
+};
+
 export const getLastUploadTime = (uploadTime: any) => {
   if (uploadTime) {
     const currentTime: any = new Date();

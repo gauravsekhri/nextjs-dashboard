@@ -1,9 +1,15 @@
+import { fetchAllPublicPosts } from "@/actions/postsActions";
 import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { formatDate, formatPostDate } from "@/utils/helperFunctions";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
+  const allPosts = await fetchAllPublicPosts();
+
   const sampleData = [
     {
       title: "Please Stop Drawing Neural Networks Wrong",
@@ -33,17 +39,18 @@ export default async function Home() {
   return (
     <>
       {/* <div className="absolute top-0 h-[50px] dark:h-[70px] bg-gradient-to-b from-primary/90 to-primary/100 dark:from-primary/40 dark:to-primary/60 filter blur-[70px] dark:blur-[100px] w-[100%]"></div> */}
-      <div className="min-h-screen bg-[#ffd89b] pb-24 bg-[-webkit-linear-gradient(to_top,_#19547b,_#ffd89b)] bg-[linear-gradient(to_top,_#19547b,_#ffd89b)] -- dark:bg-[#ad5389] dark:bg-[-webkit-linear-gradient(to_bottom,_#3c1053,_#ad5389)] dark:bg-[linear-gradient(to_bottom,_#3c1053,_#ad5389)]">
-        <div className="p-4 flex items-center justify-between ">
-          <h2 className="text-2xl text-foreground font-semibold tracking-tight">
-            Syntax Scrolls
-          </h2>
-          <div className="flex items-center">
-            <ThemeToggle />
+      <ScrollArea className="h-screen">
+        <div className="min-h-screen bg-[#ffd89b] pb-24 bg-[-webkit-linear-gradient(to_top,_#19547b,_#ffd89b)] bg-[linear-gradient(to_top,_#19547b,_#ffd89b)] -- dark:bg-[#ad5389] dark:bg-[-webkit-linear-gradient(to_bottom,_#3c1053,_#ad5389)] dark:bg-[linear-gradient(to_bottom,_#3c1053,_#ad5389)]">
+          <div className="p-4 flex items-center justify-between ">
+            <h2 className="text-2xl text-foreground font-semibold tracking-tight">
+              Syntax Scrolls
+            </h2>
+            <div className="flex items-center">
+              <ThemeToggle />
+            </div>
           </div>
-        </div>
 
-        {/* <section className="bg-gray-900 shadow-xl max-h-[40vh] m-4 rounded-xl">
+          {/* <section className="bg-gray-900 shadow-xl max-h-[40vh] m-4 rounded-xl">
           <div className="mx-auto max-w-screen-lg">
             <div className="mx-auto max-w-3xl flex flex-col justify-center lg:min-h-[500px] text-center">
               <h1 className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
@@ -59,7 +66,7 @@ export default async function Home() {
           </div>
         </section> */}
 
-        {/* <section className="mb-24">
+          {/* <section className="mb-24">
           <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div className="mr-auto place-self-center lg:col-span-7">
               <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
@@ -79,52 +86,57 @@ export default async function Home() {
           </div>
         </section> */}
 
-        <section className="mb-24">
-          <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-            <div className="mr-auto place-self-center lg:col-span-7">
-              <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                Unraveling the Language of Tech
-              </h1>
-              <p className="max-w-2xl mb-6 font-light text-gray-700 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                Unravel the intricate scrolls of syntax, understanding the
-                language that powers the technology we live and breathe
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="relative p-4 max-w-screen-xl mx-auto columns-1 gap-4 overflow-hidden transition-all sm:columns-2 lg:columns-3 xl:columns-3">
-          {sampleData.map((elem: any, elemI: any) => (
-            <div
-              className="z-0 mb-4 break-inside-avoid-column cursor-pointer hover:shadow-xl"
-              key={elemI}
-            >
-              <div className="bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700 flex h-fit flex-col items-start gap-3 rounded-lg border border-white/10 p-4">
-                <div className="text-center mx-auto bg-black w-full rounded-lg">
-                  <Image
-                    src={elem.img}
-                    alt="img"
-                    width={250}
-                    height={50}
-                    className="mx-auto"
-                  />
-                </div>
-                <p className="text-md font-bold dark:text-zinc-200 mt-3">
-                  {elem.title}
+          <section className="mb-24">
+            <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+              <div className="mr-auto place-self-center lg:col-span-7">
+                <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+                  Unraveling the Language of Tech
+                </h1>
+                <p className="max-w-2xl mb-6 font-light text-gray-700 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                  Unravel the intricate scrolls of syntax, understanding the
+                  language that powers the technology we live and breathe
                 </p>
-                <div className="mt-3 flex justify-between items-center w-full">
-                  <span className="font-bold text-sm italic text-gray-500">
-                    Gaurav Sekhri
-                  </span>
-                  <span className="text-xs text-gray-600 font-semibold">
-                    28 Nov 2023
-                  </span>
-                </div>
               </div>
             </div>
-          ))}
+          </section>
 
-          {/* <div className="z-0 mb-4 break-inside-avoid-column">
+          <div className="relative p-4 max-w-screen-xl mx-auto columns-1 gap-4 overflow-hidden transition-all sm:columns-2 lg:columns-3 xl:columns-3">
+            {allPosts.map((elem: any, elemI: any) => (
+              <Link href={"/post/" + elem?.routeLink}>
+                <div
+                  className="z-0 mb-4 break-inside-avoid-column cursor-pointer hover:shadow-xl"
+                  key={elemI}
+                >
+                  <div className="bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700 flex h-fit flex-col items-start gap-3 rounded-lg border border-white/10 p-4">
+                    <div className="text-center mx-auto bg-black w-full rounded-lg">
+                      <Image
+                        src={
+                          elem?.img ??
+                          "https://www.ochch.org/wp-content/themes/mast/images/empty-photo.jpg"
+                        }
+                        alt="img"
+                        width={250}
+                        height={50}
+                        className="mx-auto"
+                      />
+                    </div>
+                    <p className="text-md font-bold dark:text-zinc-200 mt-3">
+                      {elem.title}
+                    </p>
+                    <div className="mt-3 flex justify-between items-center w-full">
+                      <span className="font-bold text-sm italic text-gray-500">
+                        Gaurav Sekhri
+                      </span>
+                      <span className="text-xs text-gray-600 font-semibold">
+                        {formatPostDate(elem?.createdAt)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+
+            {/* <div className="z-0 mb-4 break-inside-avoid-column">
             <div className="bg-secondary flex h-fit flex-col items-start gap-3 rounded-lg border border-white/10 p-4">
               <div className="flex w-full items-start justify-between">
                 <div className="flex items-start gap-2">
@@ -162,9 +174,9 @@ export default async function Home() {
               </p>
             </div>
           </div> */}
-        </div>
+          </div>
 
-        {/* <section className="relative max-h-[70vh] bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
+          {/* <section className="relative max-h-[70vh] bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
           <div className="absolute inset-0 bg-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"></div>
 
           <div className="relative mx-auto max-w-screen-xl px-4 py-1 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
@@ -201,7 +213,7 @@ export default async function Home() {
           </div>
         </section> */}
 
-        {/* <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
+          {/* <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
             {[1, 2, 3, 4, 5, 6].map((ele: any, ei: any) => (
               <div
@@ -234,8 +246,9 @@ export default async function Home() {
             ))}
           </div>
         </div> */}
-      </div>
-      <Footer />
+        </div>
+        <Footer />
+      </ScrollArea>
     </>
   );
 }

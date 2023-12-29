@@ -38,6 +38,18 @@ export const fetchPosts = async (search: string, page: number) => {
   }
 };
 
+export const fetchAllPublicPosts = async () => {
+  try {
+    const posts = await Posts.find({ isPublished: true }).sort({
+      createdAt: -1,
+    });
+    return posts;
+  } catch (err: any) {
+    console.log(err);
+    throw new Error("err");
+  }
+};
+
 export const newPost = async (formData: any) => {
   const {
     title,
