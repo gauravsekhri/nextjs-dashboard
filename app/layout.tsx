@@ -8,8 +8,9 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Admin",
-  description: "Crafted with love by Gaurav Sekhri",
+  title: "Syntax Scrolls",
+  description:
+    "Crafted with love by Gaurav Sekhri. A powerful blogging platform. Syntax Scrolls",
 };
 
 export default function RootLayout({

@@ -71,7 +71,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           className="focus:border-none"
           // className="bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="name@company.com"
-          defaultValue="gaurav@sekhri.com"
+          // defaultValue="gaurav@sekhri.com"
           required
         />
       </div>
@@ -87,7 +87,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           name="password"
           id="password"
           placeholder="••••••••"
-          defaultValue="thisisatestvalue"
+          // defaultValue="thisisatestvalue"
           // className="bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           required
         />
