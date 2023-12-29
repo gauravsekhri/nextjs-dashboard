@@ -15,9 +15,10 @@ export default function AuthenticationPage() {
     "NodeJs",
     "MongodB",
     "Shadcn UI",
-    "Zustand",
+    "Recharts",
     "Tailwind CSS",
     "Theming",
+    "Analytics",
   ];
 
   return (
