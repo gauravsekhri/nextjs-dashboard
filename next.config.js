@@ -14,6 +14,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/dashboard",
+        destination: "/dashboard/analytics",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

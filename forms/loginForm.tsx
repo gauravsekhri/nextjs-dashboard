@@ -40,7 +40,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     if (!response?.error && response?.ok) {
       // router.refresh();
-      router.push("/");
+      router.push("/dashboard/analytics");
       console.log("loginn");
     } else {
       toast.error("invalid credentials");

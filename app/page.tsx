@@ -41,7 +41,7 @@ export default async function Home() {
       {/* <div className="absolute top-0 h-[50px] dark:h-[70px] bg-gradient-to-b from-primary/90 to-primary/100 dark:from-primary/40 dark:to-primary/60 filter blur-[70px] dark:blur-[100px] w-[100%]"></div> */}
       <ScrollArea className="h-screen">
         <div className="min-h-screen bg-[#ffd89b] pb-24 bg-[-webkit-linear-gradient(to_top,_#19547b,_#ffd89b)] bg-[linear-gradient(to_top,_#19547b,_#ffd89b)] -- dark:bg-[#ad5389] dark:bg-[-webkit-linear-gradient(to_bottom,_#3c1053,_#ad5389)] dark:bg-[linear-gradient(to_bottom,_#3c1053,_#ad5389)]">
-          <div className="p-4 flex items-center justify-between ">
+          <div className="sticky top-0 p-4 flex items-center justify-between backdrop-blur-lg z-50">
             <h2 className="text-2xl text-foreground font-semibold tracking-tight">
               Syntax Scrolls
             </h2>
@@ -86,9 +86,9 @@ export default async function Home() {
           </div>
         </section> */}
 
-          <section className="mb-24">
+          <section className="mt-8 lg:mt-0 lg:mb-24">
             <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-              <div className="mr-auto place-self-center lg:col-span-7">
+              <div className="mr-auto place-self-center lg:col-span-7 text-center lg:text-left">
                 <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                   Unraveling the Language of Tech
                 </h1>
@@ -108,7 +108,7 @@ export default async function Home() {
                   key={elemI}
                 >
                   <div className="bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700 flex h-fit flex-col items-start gap-3 rounded-lg border border-white/10 p-4">
-                    <div className="text-center mx-auto bg-black w-full rounded-lg">
+                    <div className="text-center mx-auto bg-black w-full rounded-lg min-h-[200px]">
                       <Image
                         src={
                           elem?.img ??
@@ -117,7 +117,7 @@ export default async function Home() {
                         alt="img"
                         width={250}
                         height={50}
-                        className="mx-auto"
+                        className="mx-auto h-[100%] w-auto"
                       />
                     </div>
                     <p className="text-md font-bold dark:text-zinc-200 mt-3">

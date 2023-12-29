@@ -17,11 +17,13 @@ export default async function Features() {
               </h2>
               <div className="flex items-center">
                 <ThemeToggle />
+                <Link href="/">
+                  <Button variant="outline" className="ml-4">
+                    Blog
+                  </Button>
+                </Link>
                 <Link href="/login">
-                  {/* <div className="ml-4 cursor-pointer text-gray-300 bg-gray-900 px-4 py-3 rounded-lg">
-                    Login
-                  </div> */}
-                  <Button variant="secondary" className="ml-4">
+                  <Button variant="outline" className="ml-4">
                     Login
                   </Button>
                 </Link>
