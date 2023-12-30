@@ -188,7 +188,7 @@ const BlogEditor = ({ initialText, onChange }: BlogEditor) => {
             .setLink({ href: val })
             .run();
         }
-        setShowImgDialog(false);
+        closeTextDialog();
       },
     });
   };
