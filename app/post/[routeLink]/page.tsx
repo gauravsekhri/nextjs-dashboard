@@ -1,4 +1,5 @@
 import { postByRouteLink, postPublicData } from "@/actions/postsActions";
+import PostPreview from "@/components/BlogsModule/PostPreview";
 import Footer from "@/components/Footer";
 import PostActivityTracker from "@/components/PostActivityTracker";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -77,8 +78,11 @@ const PublicPostScreen = async ({
                 <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-gray-500">
                   <img
                     className="mr-4 w-16 h-16 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                    alt="Jese Leos"
+                    src={
+                      postData?.userAvatar ??
+                      "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                    }
+                    alt={postData?.userFullname ?? "avatar"}
                   />
                   <div>
                     <a
@@ -86,7 +90,7 @@ const PublicPostScreen = async ({
                       rel="author"
                       className="text-xl font-bold text-gray-900 dark:text-white"
                     >
-                      {postData?.createdBy}
+                      {postData?.userFullname ?? ""}
                     </a>
                     <p className="text-base text-gray-500 dark:text-gray-400">
                       <time dateTime="2022-02-08" title="February 8th, 2022">
@@ -100,10 +104,12 @@ const PublicPostScreen = async ({
                 {postData?.title}
               </h1>
             </header>
-            <div
+            {/* <div
               className="dark:text-gray-300"
               dangerouslySetInnerHTML={{ __html: postData?.content }}
-            ></div>
+            ></div> */}
+            {/* It should have been server side rendered */}
+            <PostPreview content={postData?.content} />
           </article>
         </div>
       </main>

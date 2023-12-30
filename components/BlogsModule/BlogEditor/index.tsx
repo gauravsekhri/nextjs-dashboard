@@ -44,9 +44,7 @@ import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import TextAlign from "@tiptap/extension-text-align";
-import { toast } from "sonner";
 import { TextDialog } from "@/utils/interfaces";
-import SeoEditorDialog from "../SeoEditorDialog";
 
 interface BlogEditor {
   initialText: string;

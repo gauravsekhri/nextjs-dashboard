@@ -227,12 +227,54 @@ export const postByRouteLink = async (routeLink: any) => {
 
 export const postPublicData = async (routeLink: any) => {
   try {
-    const res = await Posts.findOne({
-      routeLink: routeLink,
-      isPublished: true,
-    });
+    // const res = await Posts.findOne({
+    //   routeLink: routeLink,
+    //   isPublished: true,
+    // });
 
-    return res ?? null;
+    // return res ?? null;
+
+    const res = await Posts.aggregate([
+      {
+        $match: {
+          routeLink: routeLink,
+          isPublished: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "createdBy",
+          foreignField: "email",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          postId: 1,
+          img: 1,
+          title: 1,
+          content: 1,
+          metaDescription: 1,
+          metaKeywords: 1,
+          routeLink: 1,
+          userAvatarUrl: 1,
+          createdAt: 1,
+          createdBy: 1,
+          userFullname: "$userDetails.fullName",
+          userAvatar: "$userDetails.avatarUrl",
+        },
+      },
+    ]);
+
+    if (res && res?.length > 0) {
+      return res[0];
+    } else {
+      return null;
+    }
   } catch (err: any) {
     console.log(err);
     return null;
