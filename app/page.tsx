@@ -10,32 +10,6 @@ import Link from "next/link";
 export default async function Home() {
   const allPosts = await fetchAllPublicPosts();
 
-  const sampleData = [
-    {
-      title: "Please Stop Drawing Neural Networks Wrong",
-      img: "https://miro.medium.com/v2/resize:fill:112:112/1*cErfwa2DK67ho30auUYfyA.png",
-    },
-    {
-      title:
-        "You're Using ChatGPT Wrong! Here's How to Be Ahead of 99% of ChatGPT Users",
-      img: "https://miro.medium.com/v2/resize:fill:112:112/1*y0vJwEfN45barnQO9jiYew.jpeg",
-    },
-    {
-      title:
-        "Only One Library Book Ban Case Has Ever Made It to the Supreme Court",
-      img: "https://miro.medium.com/v2/resize:fill:112:112/1*q4huIVfQXPwgZcrP1EtHZQ.jpeg",
-    },
-    {
-      title:
-        "Overcoming Top 5 Fears in School Leadership: Strategies for Success",
-      img: "https://miro.medium.com/v2/da:true/resize:fill:112:112/0*OvmCAA-yA6bzu4yP",
-    },
-    {
-      title: "The Tragic Downfall of National Geographic",
-      img: "https://miro.medium.com/v2/resize:fill:112:112/0*HRgYFpbjEDySwfdJ.png",
-    },
-  ];
-
   return (
     <>
       {/* <div className="absolute top-0 h-[50px] dark:h-[70px] bg-gradient-to-b from-primary/90 to-primary/100 dark:from-primary/40 dark:to-primary/60 filter blur-[70px] dark:blur-[100px] w-[100%]"></div> */}
@@ -108,7 +82,7 @@ export default async function Home() {
                   key={elemI}
                 >
                   <div className="bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700 flex h-fit flex-col items-start gap-3 rounded-lg border border-white/10 p-4">
-                    <div className="text-center mx-auto bg-black w-full rounded-lg min-h-[200px]">
+                    <div className="text-center mx-auto bg-black w-full rounded-lg min-h-[200px] flex justify-center items-center overflow-hidden">
                       <Image
                         src={
                           elem?.img ??
@@ -117,7 +91,7 @@ export default async function Home() {
                         alt="img"
                         width={250}
                         height={50}
-                        className="mx-auto h-[100%] w-auto"
+                        className="mx-auto h-auto w-[100%] max-w-[100%]"
                       />
                     </div>
                     <p className="text-md font-bold dark:text-zinc-200 mt-3">

@@ -2,7 +2,6 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
@@ -25,12 +24,18 @@ import { EditorProvider, useCurrentEditor } from "@tiptap/react";
 import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
 import OrderedList from "@tiptap/extension-ordered-list";
 import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Color } from "@tiptap/extension-color";
-import { PiCodeBlockDuotone } from "react-icons/pi";
 import CodeBlock from "@tiptap/extension-code-block";
+import Document from "@tiptap/extension-document";
+import Heading from "@tiptap/extension-heading";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import TextAlign from "@tiptap/extension-text-align";
+import { PiCodeBlockDuotone } from "react-icons/pi";
 import {
   Tooltip,
   TooltipContent,
@@ -39,11 +44,6 @@ import {
 } from "@/components/ui/tooltip";
 import ImageUrlDialog from "../ImageUrlDialog";
 import TextInputDialog from "../TextInputDialog";
-import Document from "@tiptap/extension-document";
-import Heading from "@tiptap/extension-heading";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import TextAlign from "@tiptap/extension-text-align";
 import { TextDialog } from "@/utils/interfaces";
 
 interface BlogEditor {
