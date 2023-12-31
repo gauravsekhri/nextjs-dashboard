@@ -10,7 +10,7 @@ export default async function Features() {
       <div className="bg-[#ffd89b] bg-[-webkit-linear-gradient(to_top,_#19547b,_#ffd89b)] bg-[linear-gradient(to_top,_#19547b,_#ffd89b)] -- dark:bg-[#ad5389] dark:bg-[-webkit-linear-gradient(to_bottom,_#3c1053,_#ad5389)] dark:bg-[linear-gradient(to_bottom,_#3c1053,_#ad5389)]">
         {/* <div className="h-[75px]"></div> */}
         <ScrollArea className="h-screen">
-          <div className="sticky top-0 w-full p-4 sm:p-4 backdrop-blur-lg">
+          <div className="sticky top-0 w-full p-4 sm:p-4 backdrop-blur-lg z-10">
             <div className="flex items-center justify-between">
               <h2 className="lg:text-2xl text-foreground font-semibold tracking-tight">
                 Dashboard
@@ -41,7 +41,7 @@ export default async function Features() {
 
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-6 w-full px-4 md:px-14 xl:px-32 min-h-[50vh] mb-24">
             <div className="flex flex-col items-center lg:items-start gap-6 lg:text-left text-center">
-              <h1 className="sm:text-3xl font-semibold capitalize text-4xl md:text-6xl">
+              <h1 className="sm:text-3xl font-extrabold capitalize text-4xl md:text-6xl">
                 A Powerful dashboard to <br className="md:block hidden" />{" "}
                 manage your blog
               </h1>
