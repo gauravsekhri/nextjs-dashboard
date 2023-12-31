@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/gauravsekhri/nextjs-dashboard">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/gauravsekhri/nextjs-dashboard/master/app/favicon.ico" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Syntax Scrolls - Blog + Dashboard</h3>
@@ -10,7 +10,7 @@
     An Awesome ReadME Generator To Jumpstart Your Projects!
     <br/>
     <br/>
-    <a href="https://github.com/gauravsekhri/nextjs-dashboard">View Demo</a>
+    <a href="https://syntax-scrolls.vercel.app/features">View Demo</a>
     .
     <a href="https://github.com/gauravsekhri/nextjs-dashboard/issues">Request Feature</a>
   </p>
