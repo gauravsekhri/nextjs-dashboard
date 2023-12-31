@@ -151,7 +151,7 @@ const Analytics = async () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="pl-2">
-              <TargetChart />
+              <TargetChart currentViews={viewsCount} totalViewsTarget={300} />
             </CardContent>
           </Card>
         </div>

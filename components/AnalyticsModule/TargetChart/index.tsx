@@ -9,10 +9,13 @@ import {
 } from "recharts";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
-const TargetChart = () => {
-  const currentViews = 19;
-  const totalViewsTarget = 300;
-
+const TargetChart = ({
+  currentViews,
+  totalViewsTarget,
+}: {
+  currentViews: Number;
+  totalViewsTarget: Number;
+}) => {
   //   const data = [
   //     { name: "Current Views", value: currentViews, fill: "#8884d8" },
   //     {
