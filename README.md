@@ -7,7 +7,7 @@
   <h3 align="center">Syntax Scrolls - Blog + Dashboard</h3>
 
   <p align="center">
-    An Awesome ReadME Generator To Jumpstart Your Projects!
+    Craft compelling content, engage your audience, and dominate search with this powerful blogging platform.
     <br/>
     <br/>
     <a href="https://syntax-scrolls.vercel.app/features">View Demo</a>
