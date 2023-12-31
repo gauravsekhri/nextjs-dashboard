@@ -197,7 +197,7 @@ export default async function Features() {
               </span>
               <div className="flex lg:mt-4 sm:justify-center items-center sm:mt-0">
                 <a
-                  href="#"
+                  href="https://github.com/gauravsekhri/nextjs-dashboard"
                   className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
                 >
                   <svg
