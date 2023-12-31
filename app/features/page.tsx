@@ -51,7 +51,7 @@ export default async function Features() {
                 developers and designers.
               </p>
             </div>
-            <div className="w-[100%] md:w-[80%] lg:w-[50%] flex gap-4 items-center justify-center relative lg:flex-row flex-col">
+            <div className="flex gap-4 items-center justify-center relative overflow-hidden">
               <Image
                 src="/features/dashboard-analytics.jpg"
                 className="shadow-xl rounded-sm block dark:hidden"
