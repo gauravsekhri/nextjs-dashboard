@@ -33,7 +33,7 @@ export default async function Features() {
           {/* <div className="py-8 text-center">This is NOT a clone app</div> */}
 
           <div
-            className="p-4 mb-12 lg:mb-4 max-w-4xl mx-auto text-center text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            className="p-4 mt-10 md:mt-0 mb-12 lg:mb-4 max-w-4xl mx-auto text-center text-sm text-red-800 md:rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert"
           >
             <span className="font-medium">This is NOT a clone app!</span>
@@ -71,7 +71,7 @@ export default async function Features() {
 
           <div className="lg:max-w-7xl md:max-w-5xl w-[95%] mx-auto flex flex-col items-center gap-20 md:gap-36">
             <div className="flex items-center justify-center gap-12 lg:gap-24 md:gap-32 flex-col m-auto w-full">
-              <div className="flex items-center gap-4 lg:gap-8 w-full justify-center lg:flex-row flex-col">
+              {/* <div className="flex items-center gap-4 lg:gap-8 w-full justify-center lg:flex-row flex-col">
                 <div className="flex flex-col items-start gap-10 flex-1">
                   <h1 className="text-center lg:text-left text-2xl sm:text-3xl md:text-4xl font-semibold capitalize">
                     Realtime post views tracking
@@ -156,7 +156,129 @@ export default async function Features() {
                     alt="Picture of the author"
                   />
                 </div>
-              </div>
+              </div> */}
+
+              <section>
+                <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+                  <div className="mx-auto max-w-screen-sm text-center">
+                    <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
+                      Start your blogging journey today
+                    </h2>
+                    <p className="mb-6 font-light text-gray-900 dark:text-gray-400 md:text-lg">
+                      Try our dasboard and start your journey of blogging today
+                      to become master!s
+                    </p>
+                    <a
+                      href="#"
+                      className="text-gray-900 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                    >
+                      View blog
+                    </a>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+                  <Image
+                    className="shadow-xl rounded-xl w-full dark:hidden"
+                    src="/features/dashboard-tracking.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+                  <Image
+                    className="shadow-xl rounded-xl w-full hidden dark:block"
+                    src="/features/dashboard-tracking-dark.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+                  <div className="mt-4 md:mt-0 text-left md:text-right">
+                    <h2 className="mb-4 text-xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                      Realtime post views tracking
+                    </h2>
+                    <p className="mb-6 font-light text-md text-gray-900 md:text-lg dark:text-gray-400">
+                      Flowbite helps you connect with friends and communities of
+                      people who share your interests. Connecting with your
+                      friends and family as well as discovering new ones is easy
+                      with features like Groups.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+                  <div className="mt-4 md:mt-0 hidden md:block">
+                    <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                      Effortless Organization
+                    </h2>
+                    <p className="mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
+                      Flowbite helps you connect with friends and communities of
+                      people who share your interests. Connecting with your
+                      friends and family as well as discovering new ones is easy
+                      with features like Groups.
+                    </p>
+                  </div>
+                  <Image
+                    className="shadow-xl rounded-xl w-full dark:hidden"
+                    src="/features/dashboard-blogs.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+                  <Image
+                    className="shadow-xl rounded-xl w-full hidden dark:block"
+                    src="/features/dashboard-blogs-dark.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+                  <div className="mt-4 md:mt-0 text-left md:text-right block md:hidden">
+                    <h2 className="mb-4 text-xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                      Effortless Organization
+                    </h2>
+                    <p className="mb-6 font-light text-md text-gray-900 md:text-lg dark:text-gray-400">
+                      Flowbite helps you connect with friends and communities of
+                      people who share your interests. Connecting with your
+                      friends and family as well as discovering new ones is easy
+                      with features like Groups.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+                  <Image
+                    className="shadow-xl rounded-xl w-full dark:hidden"
+                    src="/features/keywords.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+                  <Image
+                    className="shadow-xl rounded-xl w-full hidden dark:block"
+                    src="/features/keywords-dark.jpg"
+                    alt="dashboard image"
+                    width={500}
+                    height={500}
+                  />
+
+                  <div className="mt-4 md:mt-0 text-left md:text-right">
+                    <h2 className="mb-4 text-xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                      Update SEO for your post
+                    </h2>
+                    <p className="mb-6 font-light text-md text-gray-900 md:text-lg dark:text-gray-400">
+                      Flowbite helps you connect with friends and communities of
+                      people who share your interests. Connecting with your
+                      friends and family as well as discovering new ones is easy
+                      with features like Groups.
+                    </p>
+                  </div>
+                </div>
+              </section>
 
               {/* <div className="sm:flex sm:items-center sm:justify-between w-full py-8 text-gray-500 dark:text-gray-400">
                 <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
